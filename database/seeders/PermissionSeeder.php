@@ -71,7 +71,7 @@ class PermissionSeeder extends Seeder
             'prestation.delete',
             'gallery.show',
             'gallery.create',
-            'gallery.update',
+            // 'gallery.update',
             'gallery.delete',
             'employees.show',
             'employees.create',

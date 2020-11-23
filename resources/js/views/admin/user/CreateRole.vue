@@ -12,7 +12,7 @@
                             v-model="check[i]"
                             :value="true"
                             :unchecked-value="false"
-                            @change="checkbox(i)"
+                            @change="checkbox(i, $event)"
                         >
                             <strong class="text-capitalize">{{ i }}</strong>
                         </b-form-checkbox>
@@ -40,7 +40,8 @@
                             v-model="find(i.status, j)[0].bool"
                             :value="true"
                             :unchecked-value="false"
-                            @change="checkbox(i.permission, $event)"
+                            :disabled="j !== 'show' && find(i.status, 'show')[0].bool === false"
+                            @change="checkbox(`${i.permission}.${j}`, $event, true)"
                         />
                     </b-col>
                 </b-row>
@@ -104,12 +105,28 @@ export default {
         find(arr, str){
             return arr.filter(i => i.name === str)
         },
-        checkbox(name, e = null){
+        checkbox(name, e = null, bool = false){
             this.data.forEach((i, k) => {
-                const p = this.s(i.permission)[0]
+                const p = this.s(i.permission)
 
-                if(i.permission === `${p}.${name}` || p === name)
-                    i.status = p === name ? e : !this.check[name]
+                if(bool){
+                    if(p[0] + '.show' === name && e === false)
+                        Object.keys(this.check).forEach(j => {
+                            let a = this.data.filter(z => z.permission === `${p[0]}.${j}`)[0]
+
+                            a.status = e
+                        })
+                    else if(i.permission === name) i.status = e
+                }else if(name === 'show'){
+                    if(e === false) i.status = e
+                    else i.status = i.permission === `${p[0]}.${name}` ? !this.check[name] : i.status
+                }else if(i.permission === `${p[0]}.${name}` || i.permission === `${name}.${p[1]}`){
+                    if(p[0] === name) i.status = e
+                    else{
+                        if(this.data.filter(z => z.permission === `${p[0]}.show`)[0].status)
+                            i.status = !this.check[name]
+                    }
+                }
             })
         },
         send(){
