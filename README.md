@@ -33,7 +33,6 @@ Recaptcha key and secret key can be obtained at [Google Recaptcha](https://www.g
 - Install node.js `npm install && npm run dev`
 - Generate key `php artisan key:generate`
 - Create storage `php artisan storage:link`
-- Create your own branch `git checkout -b my-own-branch`
 - Run the server `php artisan serve`
 - Open new terminal then migrate and seed `php artisan migrate --seed`
 
