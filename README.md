@@ -24,7 +24,6 @@ Recaptcha key and secret key can be obtained at [Google Recaptcha](https://www.g
 
 ### Install
 - Clone the project `git clone https://github.com/AnOrdinaryPeople/semekeh-rework.git`
-- Pull the development branch `git pull origin development`
 - Duplicate environment `cp .env.example .env`
 - Set up environment
   - DB_DATABASE = `db_smk_rework`
