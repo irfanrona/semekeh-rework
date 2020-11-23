@@ -2,6 +2,10 @@
 
 /**
  * IDK why i made this function..
+ * 
+ * @param string $a
+ * 
+ * @return boolean
  */
 function matchWildcard($a){
     $b = ['.show', '.create', '.update', '.delete'];
@@ -49,7 +53,9 @@ function appStoragePath($path){
 }
 
 /**
- * This will return any text with kebab case.
+ * This will return any text to kebab case.
+ * 
+ * @param string $text
  * 
  * @return string
  */
@@ -81,6 +87,8 @@ function kebabCase($text){
 /**
  * This should be compress the image
  * with correct storage path.
+ * 
+ * @param any $path
  * 
  * @return \Intervention\Image\Image
  */
