@@ -1,0 +1,122 @@
+.footer{
+    padding: 0;
+    background-color: var(--bpi-blue);
+}
+
+.footer .back-footer{
+    background-color: var(--bpi-blue);
+}
+.footer .back-footer .container{
+    padding: 80px 0px 80px 0px;
+}
+.con {
+    padding: 40px;
+}
+.footer .back-footer h3{
+    font-size: 22px;
+    font-family: poppins-semibold;
+    color: var(--white);
+}
+.footer .back-footer .garis{
+    height: 2px;
+    width: 100%;
+    background: var(--bpi-yellow);
+    margin-bottom: 20px;
+}
+
+.footer .ig .gmbr div{
+    padding: 4px;
+}
+.glrys {
+    padding: 12px;
+    max-height: 70px;
+}
+.footer .ig img{
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    object-fit: cover;
+}
+
+.footer .artikel li{
+    margin-bottom: 5px;
+}
+.footer .artikel a{
+    color: var(--white);
+    font-family: poppins;
+    font-size: 12px;
+    text-decoration: none;
+}
+.footer .artikel i{
+    color: var(--bpi-yellow);
+    margin-right: 10px;
+}
+
+.footer .agenda li{
+    margin-bottom: 10px;
+}
+.footer .agenda .img-agenda{
+    padding: 0;
+    max-height: 80px;
+    max-width: 80px;
+}
+.footer .agenda img{
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+}
+.footer .agenda .tgl-agenda{
+    color: var(--bpi-yellow);
+    font-family: poppins;
+    font-size: 12px;
+}
+.footer .agenda .desc-agenda{
+    color: var(--white);
+    font-family: poppins;
+    font-size: 12px;
+    margin-top: -10px !important;
+    margin-bottom: 0px !important;
+    padding-top: 0 !important;
+}
+
+.footer .tentang p{
+    color: var(--white);
+    font-family: poppins;
+    font-size: 12px;
+}
+.footer .tentang a{
+    color: var(--bpi-blue);
+    background: var(--bpi-yellow);
+    padding: 10px 13px 10px 13px;
+    border: 1px solid var(--bpi-yellow);
+    border-radius: 100%;
+}
+.footer .tentang .lokasi{
+    padding: 10px 15px 10px 15px;
+}
+.footer .tentang li a{
+    display: inline-block;
+}
+.footer .tentang .btn-tentang{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.footer .copyright{
+    background: var(--bpi-yellow);
+    text-align: center;
+}
+.footer .copyright p{
+    color: var(--white);
+    padding: 30px 15px 30px 15px;
+    margin: 0;
+    font-family: poppins;
+}
+.footer .copyright a{
+    color: var(--bpi-blue);
+    text-decoration: none;
+}
+.footer .copyright a:hover{
+    color: var(--white);
+    text-decoration: none;
+}

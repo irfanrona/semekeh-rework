@@ -1,0 +1,37 @@
+$f: '../font';
+
+@font-face {
+    font-family: 'poppins';
+    src: url('#{$f}/Poppins-Regular.ttf');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'poppins-light';
+    src: url('#{$f}/Poppins-Light.ttf');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'poppins-semibold';
+    src: url('#{$f}/Poppins-SemiBold.ttf');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'poppins-extrabold';
+    src: url('#{$f}/Poppins-ExtraBold.ttf');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'poppins-italic';
+    src: url('#{$f}/Poppins-Italic.ttf');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'poppins-medium';
+    src: url('#{$f}/Poppins-Medium.ttf');
+    font-display: swap;
+}

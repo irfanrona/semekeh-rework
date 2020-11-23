@@ -1,0 +1,22 @@
+// Fonts
+@import 'font';
+
+// Variables
+@import 'variables';
+
+// Vue Formulate
+@import '~@braid/vue-formulate/themes/snow/snow.scss';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index.scss';
+
+// Swiper
+@import '~swiper/swiper-bundle.css';
+@import '~swiper/components/pagination/pagination.scss';
+
+// Vue SimpleMDE
+@import '~simplemde/dist/simplemde.min.css';
+
+// Main CSS
+@import '../css/app.css';

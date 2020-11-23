@@ -1,0 +1,25 @@
+.breadcrumb-area {
+    position: relative;
+    z-index: 1;
+    height: 370px;
+}
+.breadcrumb-content {
+    position: relative;
+    z-index: 1;
+    margin-top: 9px;
+}
+.breadcrumb-area .page-title {
+    color: var(--bpi-yellow);
+    font-family: poppins-medium;
+    font-size: 45px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    color: var(--white) !important;
+}
+.breadcrumb{
+    background-color: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
