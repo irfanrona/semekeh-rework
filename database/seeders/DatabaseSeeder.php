@@ -15,8 +15,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(MenuSeeder::class);
         $this->call(PermissionSeeder::class);
-        \App\Models\User::truncate();
-        \App\Models\User::factory(2)->create();
+        $this->call(UserSeeder::class);
+        // \App\Models\User::truncate();
+        // \App\Models\User::factory(2)->create();
         $this->call(CarouselSeeder::class);
         $this->call(VideoSeeder::class);
         $this->call(KeywordSeeder::class);
