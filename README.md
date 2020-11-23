@@ -36,4 +36,8 @@ Recaptcha key and secret key can be obtained at [Google Recaptcha](https://www.g
 - Create storage `php artisan storage:link`
 - Create your own branch `git checkout -b my-own-branch`
 - Run the server `php artisan serve`
-- Migrate and seed `php artisan migrate --seed`
+- Open new terminal then migrate and seed `php artisan migrate --seed`
+
+# Credentials
+- super@smkbpi.sch.id 12345678
+- admin@smkbpi.sch.id 12345678
