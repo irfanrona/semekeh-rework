@@ -47,3 +47,9 @@ window.addEventListener('devtoolschange', e => {
         }, 10000)
     }
 })
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/service-worker.js')
+    })
+}

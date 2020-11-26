@@ -33,6 +33,7 @@
         "bootstrap-vue": "^2.17.3",
         "ckeditor4-vue": "^1.1.0",
         "devtools-detect": "^3.0.1",
+        "sw-precache-webpack-plugin": "^1.0.0",
         "swiper": "^6.3.3",
         "vue-awesome-swiper": "^4.1.1",
         "vue-head": "^2.2.0",
