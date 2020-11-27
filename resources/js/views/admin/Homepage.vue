@@ -65,13 +65,14 @@
                 <b-card-body>
                     <b-card-title>
                         <b-btn
+                            v-if="access['homepage-video.update']"
                             variant="info"
                             :title="$t('edit')"
                             v-b-tooltip.hover
                             size="sm"
                             @click="edit('section', table.section.items[0])"
                         >
-                            <fa v-if="access['homepage-video.update']" icon="pencil-alt" />
+                            <fa icon="pencil-alt" />
                         </b-btn>
                         {{ cardTtl('admin.homepage.video', 0) }}
                     </b-card-title>
@@ -234,13 +235,14 @@
                 <b-card-body>
                     <b-card-title>
                         <b-btn
+                            v-if="access['homepage-alumni.update']"
                             variant="info"
                             :title="$t('edit')"
                             v-b-tooltip.hover
                             size="sm"
                             @click="edit('section', table.section.items[4])"
                         >
-                            <fa v-if="access['homepage-alumni.update']" icon="pencil-alt" />
+                            <fa icon="pencil-alt" />
                         </b-btn>
                         {{ cardTtl('admin.homepage.alumni', 4) }}
                     </b-card-title>
@@ -320,13 +322,14 @@
                 <b-card-body>
                     <b-card-title>
                         <b-btn
+                            v-if="access['homepage-company.update']"
                             variant="info"
                             :title="$t('edit')"
                             v-b-tooltip.hover
                             size="sm"
                             @click="edit('section', table.section.items[5])"
                         >
-                            <fa v-if="access['homepage-company.update']" icon="pencil-alt" />
+                            <fa icon="pencil-alt" />
                         </b-btn>
                         {{ cardTtl('admin.homepage.company', 5) }}
                     </b-card-title>
