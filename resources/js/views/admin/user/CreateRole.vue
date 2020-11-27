@@ -167,13 +167,18 @@ export default {
             this.data.forEach(i => {
                 const p = this.s(i.permission)[0]
 
-                if(p === 'audits')
+                if(p === 'audits'){
+                    a.push({
+                        permission: 'meta-tags',
+                        status: b
+                    })
                     a.push({
                         permission: 'audits',
                         status: [
                             { name: 'show', bool: i.status ? true : false }
                         ]
                     })
+                }
                 else if((temp !== '' && temp !== p)){
                     a.push({
                         permission: temp,
