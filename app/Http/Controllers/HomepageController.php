@@ -63,7 +63,7 @@ class HomepageController extends Controller
                 'by_user' => $b->name ?? __('label.user_not_found'),
                 'module' => str_replace('App\\Models\\', '', $b->auditable_type),
                 'event' => $b->event,
-                'created_at' => date('Y M d h:i:s', strtotime($b->created_at)),
+                'created_at' => date('Y M d H:i:s', strtotime($b->created_at)),
                 'ip_address' => $b->ip_address,
                 'user_agent' => $b->user_agent,
                 'old_values' => $b->old_values,
