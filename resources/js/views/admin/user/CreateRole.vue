@@ -112,9 +112,11 @@ export default {
                 if(bool){
                     if(p[0] + '.show' === name && e === false)
                         Object.keys(this.check).forEach(j => {
-                            let a = this.data.filter(z => z.permission === `${p[0]}.${j}`)[0]
+                            try{
+                                let a = this.data.filter(z => z.permission === `${p[0]}.${j}`)[0]
 
-                            a.status = e
+                                a.status = e
+                            }catch(e){}
                         })
                     else if(i.permission === name) i.status = e
                 }else if(name === 'show'){
