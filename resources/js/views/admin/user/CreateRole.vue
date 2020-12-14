@@ -10,6 +10,7 @@
                         <b-form-checkbox
                             v-if="k !== 0"
                             v-model="check[i]"
+                            :checked="detectCheck(check[i], i)"
                             :value="true"
                             :unchecked-value="false"
                             @change="checkbox(i, $event)"
@@ -27,6 +28,7 @@
                 >
                     <b-col cols="4" class="text-capitalize">
                         <b-form-checkbox
+                            :checked="detectCheck('', i.permission, true)"
                             :value="true"
                             :unchecked-value="false"
                             @change="checkbox(i.permission, $event)"
@@ -157,6 +159,16 @@ export default {
                 text: 'Check the field permission at least 1.',
                 color: 'danger'
             })
+        },
+        detectCheck(bool, type, isBox = false){
+            let check = this.data.filter(i =>
+                this.s(i.permission)[isBox ? 0 : 1] === type && i.status ? true : false
+            ).length === this.data.filter(i => i.permission.match(new RegExp(type, 'g'))).length
+
+            if(typeof bool === 'boolean')
+                this.check[type] = check
+
+            return check
         }
     },
     computed: {
