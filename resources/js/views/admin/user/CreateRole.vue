@@ -8,16 +8,13 @@
                 <b-row class="pb-2 border-bottom border-bpi-blue">
                     <b-col v-for="(i, k) in first" :key="k" :cols="k === 0 ? 4 : 2">
                         <b-form-checkbox
-                            v-if="k !== 0"
                             v-model="check[i]"
-                            :checked="detectCheck(check[i], i)"
                             :value="true"
                             :unchecked-value="false"
-                            @change="checkbox(i, $event)"
+                            @change="k !== 0 ? checkbox(i, $event) : checkAll($event)"
                         >
                             <strong class="text-capitalize">{{ i }}</strong>
                         </b-form-checkbox>
-                        <strong v-else class="text-capitalize">{{ i }}</strong>
                     </b-col>
                 </b-row>
                 <b-row
@@ -169,6 +166,12 @@ export default {
                 this.check[type] = check
 
             return check
+        },
+        checkAll(e){
+            this.data = this.data.map(i => ({
+                ...i,
+                status: e
+            }))
         }
     },
     computed: {
