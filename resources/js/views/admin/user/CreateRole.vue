@@ -8,10 +8,21 @@
                 <b-row class="pb-2 border-bottom border-bpi-blue">
                     <b-col v-for="(i, k) in first" :key="k" :cols="k === 0 ? 4 : 2">
                         <b-form-checkbox
+                            v-if="i !== 'permission'"
                             v-model="check[i]"
                             :value="true"
                             :unchecked-value="false"
-                            @change="k !== 0 ? checkbox(i, $event) : checkAll($event)"
+                            :disabled="i !== 'show' && disableCheck()"
+                            @change="checkbox(i, $event)"
+                        >
+                            <strong class="text-capitalize">{{ i }}</strong>
+                        </b-form-checkbox>
+                        <b-form-checkbox
+                            v-else
+                            :checked="checkPerm"
+                            :value="true"
+                            :unchecked-value="false"
+                            @change="checkAll"
                         >
                             <strong class="text-capitalize">{{ i }}</strong>
                         </b-form-checkbox>
@@ -25,7 +36,7 @@
                 >
                     <b-col cols="4" class="text-capitalize">
                         <b-form-checkbox
-                            :checked="detectCheck('', i.permission, true)"
+                            :checked="detectCheck(i.permission)"
                             :value="true"
                             :unchecked-value="false"
                             @change="checkbox(i.permission, $event)"
@@ -129,6 +140,8 @@ export default {
                     }
                 }
             })
+
+            this.detectCheckk(name === 'show' && e === false, e)
         },
         send(){
             let check = []
@@ -157,21 +170,46 @@ export default {
                 color: 'danger'
             })
         },
-        detectCheck(bool, type, isBox = false){
-            let check = this.data.filter(i =>
-                this.s(i.permission)[isBox ? 0 : 1] === type && i.status ? true : false
+        detectCheck(type){
+            return this.data.filter(i =>
+                this.s(i.permission)[0] === type && i.status ? true : false
             ).length === this.data.filter(i => i.permission.match(new RegExp(type, 'g'))).length
+        },
+        detectCheckk(fromShow = false, e){
+            const d = this.data,
+                detect = t => d.filter(i =>
+                this.s(i.permission)[1] === t && i.status ? true : false
+            ).length === d.filter(i =>
+                i.permission.match(new RegExp(t, 'g'))
+                && d.filter(j => {
+                    const s = this.s(j.permission)
 
-            if(typeof bool === 'boolean')
-                this.check[type] = check
+                    return t === 'show'
+                        ? true
+                        : s[0] === this.s(i.permission)[0] && s[1] === 'show' && j.status ? true : false
+                }).length
+            ).length
 
-            return check
+            this.arr.forEach(i => {
+                if(fromShow)
+                    this.check[i] = e
+                else
+                    this.check[i] = detect(i)
+            })
+        },
+        disableCheck(){
+            return this.data.filter(i =>
+                i.permission.match(new RegExp('show', 'g')) && i.status ? true : false
+            ).length === 0
         },
         checkAll(e){
             this.data = this.data.map(i => ({
                 ...i,
                 status: e
             }))
+            this.arr.forEach(i => {
+                this.check[i] = e
+            })
         }
     },
     computed: {
@@ -214,6 +252,9 @@ export default {
             })
 
             return a
+        },
+        checkPerm(){
+            return this.data.filter(i => i.status ? true : false).length === this.data.length
         }
     }
 }
