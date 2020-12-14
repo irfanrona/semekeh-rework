@@ -178,23 +178,25 @@ export default {
         detectCheckk(fromShow = false, e){
             const d = this.data,
                 detect = t => d.filter(i =>
-                this.s(i.permission)[1] === t && i.status ? true : false
-            ).length === d.filter(i =>
-                i.permission.match(new RegExp(t, 'g'))
-                && d.filter(j => {
-                    const s = this.s(j.permission)
+                    this.s(i.permission)[1] === t && i.status ? true : false
+                ).length === d.filter(i =>
+                    i.permission.match(new RegExp(t, 'g'))
+                    && d.filter(j => {
+                        const s = this.s(j.permission)
 
-                    return t === 'show'
-                        ? true
-                        : s[0] === this.s(i.permission)[0] && s[1] === 'show' && j.status ? true : false
-                }).length
-            ).length
+                        return t === 'show'
+                            ? true
+                            : s[0] === this.s(i.permission)[0] && s[1] === 'show' && j.status ? true : false
+                    }).length
+                ).length,
+                length = this.data.filter(i => this.s(i.permission)[1] === 'show' && i.status ? true : false).length > 0
 
             this.arr.forEach(i => {
                 if(fromShow)
                     this.check[i] = e
-                else
+                else if(length)
                     this.check[i] = detect(i)
+                else this.check[i] = false
             })
         },
         disableCheck(){
