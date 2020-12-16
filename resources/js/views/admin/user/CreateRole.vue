@@ -141,7 +141,7 @@ export default {
                 }
             })
 
-            this.detectCheckk(name === 'show' && e === false, e, this.s(name)[0])
+            this.detectCheckk(name === 'show' /*&& e === false*/, e, this.s(name)[0])
         },
         send(){
             let check = []
@@ -194,12 +194,11 @@ export default {
 
             this.arr.forEach(i => {
                 if(check.filter(k => this.s(k.permission)[1] === i).length > 0){
-                    if(fromShow)
-                        this.check[i] = e
-                    else if(length)
+                    if(length)
                         this.check[i] = detect(i)
                     else this.check[i] = false
-                }
+                }else if(fromShow)
+                    this.check[i] = i !== 'show' && e ? !e : e
             })
         },
         disableCheck(){
