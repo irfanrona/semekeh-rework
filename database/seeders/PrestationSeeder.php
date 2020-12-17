@@ -54,21 +54,21 @@ class PrestationSeeder extends Seeder
                 'title' => 'Web Design STMIK AMIK Bandung',
                 'rank' => 'Juara 2',
                 'year' => 2018,
-                'url' => path('prestation', 'prestation-6.jpg'),
+                'url' => path('prestation', 'prestation-6.webp'),
                 'created_at' => now('-2 minutes'),
                 'updated_at' => now('-2 minutes')
             ], [
                 'title' => 'Gema Ramadhan',
                 'rank' => 'Juara 2',
                 'year' => 2019,
-                'url' => path('prestation', 'prestation-7.jpg'),
+                'url' => path('prestation', 'prestation-7.webp'),
                 'created_at' => now('-1 minutes'),
                 'updated_at' => now('-1 minutes')
             ], [
                 'title' => 'Web Development Dinamik 14 UPI',
                 'rank' => 'Juara 2',
                 'year' => 2019,
-                'url' => path('prestation', 'prestation-8.png'),
+                'url' => path('prestation', 'prestation-8.webp'),
                 'created_at' => now(),
                 'updated_at' => now()
             ],

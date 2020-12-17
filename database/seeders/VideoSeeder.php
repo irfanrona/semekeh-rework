@@ -16,7 +16,7 @@ class VideoSeeder extends Seeder
         $a = now();
 
         for($i = 1; $i <= 2; $i++) $data[] = [
-            'thumbnail' => path('homepage', "thumbnail-$i.jpg"),
+            'thumbnail' => path('homepage', "thumbnail-$i.webp"),
             'video' => path('homepage', "video-$i.mp4"),
             'is_publish' => true,
             'created_at' => $a,

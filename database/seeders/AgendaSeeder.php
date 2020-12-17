@@ -64,7 +64,7 @@ class AgendaSeeder extends Seeder
                     'title' => 'Pasanggiri Jaipong',
                     'time' => '29 Februari 2020',
                     'content' => 'Pasanggiri Jaipong tingkat SD dan SMP dalam rangkaian acara LABORA FIESTA 2020.',
-                    'banner' => path('agenda', 'agenda-1.png'),
+                    'banner' => path('agenda', 'agenda-1.webp'),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],

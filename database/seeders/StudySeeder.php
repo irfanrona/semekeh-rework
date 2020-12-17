@@ -18,7 +18,7 @@ class StudySeeder extends Seeder
         \App\Models\Study::truncate();
         \App\Models\Study::insert([
             [
-                'banner' => path('study', 'study-1.png'),
+                'banner' => path('study', 'study-1.webp'),
                 'title' => 'Otomatisasi dan Tata Kelola Perkantoran',
                 'content' => '**Otomatisasi dan Tata Kelola Perkantoran** adalah kompetensi keahlian yang membekali siswa pada kegiatan perkantoran dan ketata usahaan berbasis ICT. Menekankan kegiatan administrasi yang mahir dalam melaksanakan tugas : Sekertariat junior, Public Relation, Arsiparis, Typing, Resepsionis. dan Wirausahawan yang tangguh dengan sikap Bermartabat, Berkualitas dan Terpercaya.
 
@@ -60,7 +60,7 @@ Otomatisasi dan Tata Kelola Perkantoran SMK BPI merupakan salah satu Kompetensi 
                 'created_at' => $t,
                 'updated_at' => $t
             ], [
-                'banner' => path('study', 'study-2.jpg'),
+                'banner' => path('study', 'study-2.webp'),
                 'title' => 'Rekayasa Perangkat Lunak',
                 'content' => 'Rekayasa Perangkat Lunak (RPL) merupakan salah satu program keahlian di SMK BPI, dimana pada program ini siswa belajar bagaimana cara membuat program komputer dan cara berpikir dalam menyelesaikan masalah. Keahlian ini mencetak siswa-siswi yang handal di bidang Aplikasi Mobile, Aplikasi Web dan Web Design yang merupakan profesi menjanjikan di masa depan.
 
@@ -108,7 +108,7 @@ Kompetensi Keahlian RPL mempelajari dan mendalami semua cara-cara pengembangan p
                 'created_at' => $t,
                 'updated_at' => $t
             ], [
-                'banner' => path('study', 'study-3.jpg'),
+                'banner' => path('study', 'study-3.webp'),
                 'title' => 'Teknik Komputer Jaringan',
                 'content' => 'Teknologi Informasi dan Komputer telah menjadi bagian dalam kehidupan masyarakat di era globalisasi dan pasar bebas. Masyarakat saat ini tidak lagi bisa menghindar dari zaman digital. Sebagai jembatan menuju penguasaan teknologi Informasi dan Komunikasi.
 

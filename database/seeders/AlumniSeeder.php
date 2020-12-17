@@ -19,7 +19,7 @@ class AlumniSeeder extends Seeder
                 'name' => 'Meta Rahayu',
                 'company' => 'Manajemen UPI',
                 'content' => 'Alhamdulillah, banyak ilmu dan manfaat yang saya dapatkan selama belajar di SMK BPI, berkat program yang dilakukan di sekolah, saya dapat menjadi pribadi yang lebih baik.',
-                'url' => path('homepage', 'alumni-3.jpg'),
+                'url' => path('homepage', 'alumni-3.webp'),
                 'is_publish' => true,
                 'created_at' => now('-2 hours'),
                 'updated_at' => now('-2 hours')
@@ -27,7 +27,7 @@ class AlumniSeeder extends Seeder
                 'name' => 'Achmad Try August',
                 'company' => 'Teknisi IT di PT.BIT',
                 'content' => 'Luar biasa, karena saya sangat menikmati setiap detik saat bersekolah di SMK BPI. Banyak hal dan kenangan menarik yang saya bisa dapat di SMK BPI.',
-                'url' => path('homepage', 'alumni-2.jpg'),
+                'url' => path('homepage', 'alumni-2.webp'),
                 'is_publish' => true,
                 'created_at' => now('-1 hours'),
                 'updated_at' => now('-1 hours')
@@ -35,7 +35,7 @@ class AlumniSeeder extends Seeder
                 'name' => 'Hamdan Hanafi',
                 'company' => 'PT. Smooets',
                 'content' => 'SMK BPI adalah sekolah yang menyenangkan, Alhamdulillah, saya dibimbing dan dididik oleh guru-guru yang berpengalaman serta selalu disiplin penuh terhadap siswanya.',
-                'url' => path('homepage', 'alumni-1.jpg'),
+                'url' => path('homepage', 'alumni-1.webp'),
                 'is_publish' => true,
                 'created_at' => now(),
                 'updated_at' => now()
