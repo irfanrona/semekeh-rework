@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import OrgChart from '@balkangraph/orgchart.js'
+import OrgChart from '../plugins/chart'
 
 export default {
     props: {
