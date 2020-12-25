@@ -23,7 +23,6 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "@balkangraph/orgchart.js": "^7.5.41",
         "@braid/vue-formulate": "^2.4.5",
         "@fortawesome/fontawesome-svg-core": "^1.2.32",
         "@fortawesome/free-brands-svg-icons": "^5.15.1",
