@@ -37,8 +37,8 @@ export default {
     },
     getters: {
         isLogged: state => !!state.user,
-        access: s => !!s.user ? s.user.access : null,
-        menu: s => !!s.user ? s.user.menu : null,
-        user: s => !!s.user ? s.user.user : null
+        access: s => s?.user?.access ?? null,
+        menu: s => s?.user?.menu ?? null,
+        user: s => s?.user?.user ?? null
     }
 }
