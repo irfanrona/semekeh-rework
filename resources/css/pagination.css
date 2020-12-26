@@ -1,0 +1,9 @@
+.page-item.active .page-link{
+    color: var(--white) !important;
+    background-color: var(--bpi-blue) !important;
+    border-color: var(--bpi-blue) !important;
+}
+
+.page-link{
+    color: var(--bpi-blue) !important;
+}

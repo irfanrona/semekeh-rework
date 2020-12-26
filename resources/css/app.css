@@ -3,6 +3,7 @@
 
 @import './carousel.css';
 @import './breadcrumb.css';
+@import './pagination.css';
 
 .fade-enter-active, .fade-leave-active{ transition: all .3s }
 .fade-enter, .fade-leave-to{ opacity: 0 }

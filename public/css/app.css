@@ -1451,6 +1451,15 @@ button.swiper-pagination-bullet {
     margin: 0 !important;
     padding: 0 !important;
 }
+.page-item.active .page-link{
+    color: var(--white) !important;
+    background-color: var(--bpi-blue) !important;
+    border-color: var(--bpi-blue) !important;
+}
+
+.page-link{
+    color: var(--bpi-blue) !important;
+}
 .fade-enter-active, .fade-leave-active{ transition: all .3s }
 .fade-enter, .fade-leave-to{ opacity: 0 }
 

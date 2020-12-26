@@ -18,14 +18,21 @@
         </ul>
         <ul v-else :class="cls">
             <li v-if="cls === null" class="cari">
-                <b-input-group>
-                    <b-input-group-prepend>
-                        <a class="btn btn-white" href="#">
-                            <fa icon="search" class="search" />
-                        </a>
-                    </b-input-group-prepend>
-                    <input type="text" :placeholder="$t('search')" />
-                </b-input-group>
+                <form method="get" @submit.prevent="search()">
+                    <b-input-group>
+                        <b-input-group-prepend>
+                            <b-btn type="submit" variant="white">
+                                <fa icon="search" class="search" />
+                            </b-btn>
+                        </b-input-group-prepend>
+                        <b-form-input
+                            class="bg-white text-dark border-0"
+                            type="search"
+                            v-model="q"
+                            :placeholder="$t('search')"
+                        />
+                    </b-input-group>
+                </form>
             </li>
             <li>
                 <router-link class="dropbtn" to="/employees">{{ $t("navbar.employees") }}</router-link>
@@ -143,7 +150,8 @@ export default {
         },
         profile: ['public', 'vision-mission', 'student-council', 'extracurricular'],
         media: ['agenda', 'prestations', 'galleries'],
-        data: null
+        data: null,
+        q: ''
     }),
     mounted(){
         if(!this.isLogged)
@@ -167,6 +175,19 @@ export default {
             })
 
             return a
+        },
+        search(){
+            if (this.q != "") {
+                if (this.$router.currentRoute.name === "search")
+                    this.$router.replace({ query: { q: this.q } })
+                else
+                    this.$router
+                        .push({
+                            path: "/search",
+                            query: { q: this.q }
+                        })
+                        .catch(() => {})
+            }
         }
     },
     computed: {
