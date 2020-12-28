@@ -373,7 +373,6 @@ export default {
                     this.swiper.autoplay.start()
                 }
             })
-            .catch(e => console.log(e, e.response))
     },
     methods: {
         // req(str){
