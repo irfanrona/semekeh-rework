@@ -172,6 +172,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function(){
 Route::get('navbar', [WelcomeController::class, 'navbar']);
 Route::get('footer', [WelcomeController::class, 'footer']);
 Route::get('welcome', [WelcomeController::class, 'home']);
+// Route::get('welcome/{str}', [WelcomeController::class, 'home']);
 Route::get('keyword', [WelcomeController::class, 'keyword']);
 Route::get('social', [WelcomeController::class, 'social']);
 Route::get('profile/{id}', [WelcomeController::class, 'profile']);

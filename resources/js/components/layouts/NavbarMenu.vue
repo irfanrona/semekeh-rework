@@ -141,7 +141,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-    props: ['cls'],
+    props: ['cls', 'data'],
     data: () => ({
         c: {
             a: false,
@@ -150,13 +150,13 @@ export default {
         },
         profile: ['public', 'vision-mission', 'student-council', 'extracurricular'],
         media: ['agenda', 'prestations', 'galleries'],
-        data: null,
+        // data: null,
         q: ''
     }),
-    mounted(){
-        if(!this.isLogged)
-            axios.get('navbar').then(r => this.data = r.data)
-    },
+    // mounted(){
+    //     if(!this.isLogged)
+    //         axios.get('navbar').then(r => this.data = r.data)
+    // },
     methods: {
         clicked(key){
             this.c[key] = !this.c[key]
@@ -193,11 +193,11 @@ export default {
     computed: {
         ...mapGetters(['isLogged', 'user']),
     },
-    watch: {
-        isLogged(a){
-            if(a === false)
-                axios.get('navbar').then(r => this.data = r.data)
-        }
-    }
+    // watch: {
+    //     isLogged(a){
+    //         if(a === false)
+    //             axios.get('navbar').then(r => this.data = r.data)
+    //     }
+    // }
 }
 </script>

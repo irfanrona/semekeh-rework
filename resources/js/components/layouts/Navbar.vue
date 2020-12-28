@@ -45,7 +45,7 @@
                         </router-link>
                     </div>
                 </div>
-                <app-nav-menu cls="menu" />
+                <app-nav-menu cls="menu" :data="menu" />
             </b-container>
         </b-navbar>
 
@@ -70,7 +70,7 @@
             </div>
         </div>
         <b-collapse id="app-mobile-nav" class="sidenav">
-            <app-nav-menu :cls="null" />
+            <app-nav-menu :cls="null" :data="menu" />
         </b-collapse>
     </div>
 </template>
@@ -87,7 +87,8 @@ export default {
     },
     data: () => ({
         sideToggle: false,
-        q: ''
+        q: '',
+        menu: null,
     }),
     mounted(){
         let nav = this.getId('app-nav').style,
@@ -126,6 +127,9 @@ export default {
                 this.setStyle(main, 'inherit', '0px', 'auto')
             }
         })
+
+        if(!this.isLogged)
+            axios.get('navbar').then(r => this.menu = r.data)
     },
     methods: {
         setStyle(s, ...styles){
@@ -158,6 +162,12 @@ export default {
     },
     computed: {
         ...mapGetters(['isLogged'])
+    },
+    watch: {
+        isLogged(a){
+            if(a === false)
+                axios.get('navbar').then(r => this.menu = r.data)
+        }
     }
 }
 </script>

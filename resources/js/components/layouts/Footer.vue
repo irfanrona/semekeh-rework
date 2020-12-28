@@ -65,13 +65,13 @@
 
 <script>
 export default {
-    props: ['social', 'footer'],
-    data: () => ({
-        agenda: null
-    }),
-    mounted(){
-        axios.get('footer')
-            .then(r => this.agenda = r.data)
-    }
+    props: ['social', 'footer', 'agenda'],
+    // data: () => ({
+    //     agenda: null
+    // }),
+    // mounted(){
+    //     axios.get('footer')
+    //         .then(r => this.agenda = r.data)
+    // }
 }
 </script>

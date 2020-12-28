@@ -7,7 +7,11 @@
 
             <template #footer="{ hide }">
                 <div class="text-center p-3">
-                    <a class="text-bpi-blue text-decoration-none" href="#" @click.prevent="logout(hide)">
+                    <a
+                        class="text-bpi-blue text-decoration-none"
+                        href="#"
+                        @click.prevent="logout(hide)"
+                    >
                         <strong>{{ $t("logout") }}</strong>
                     </a>
                 </div>
@@ -26,7 +30,7 @@
             </transition>
         </main>
 
-        <app-footer :social="social" :footer="footer" />
+        <app-footer :social="social" :footer="footer" :agenda="agenda" />
     </div>
 </template>
 
@@ -45,12 +49,17 @@ export default {
     },
     data: () => ({
         social: [],
-        footer: []
+        footer: [],
+        agenda: null
     }),
     mounted(){
         axios.get('social').then(r => {
             this.social = r.data.social
             this.footer = r.data.footer
+        })
+        .then(() => {
+            axios.get('footer')
+                .then(r => this.agenda = r.data)
         })
     },
     methods: {

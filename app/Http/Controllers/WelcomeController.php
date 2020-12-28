@@ -35,7 +35,41 @@ class WelcomeController extends Controller
     public function footer(){
         return response(Agenda::latest()->first(['banner', 'title', 'time', 'slug']));
     }
-    public function home(){
+    public function home($str = ''){
+        // Request chaining
+        // switch ($str) {
+        //     case 'carousel':
+        //         $a = Carousel::oldest()->get(['description', 'title', 'type', 'url']);
+        //         break;
+        //     case 'video':
+        //         $a = Video::whereIsPublish(true)->latest()->get(['thumbnail', 'video']);
+        //         break;
+        //     case 'about':
+        //         $a = About::whereId(1)->first(['content', 'url']);
+        //         break;
+        //     case 'alumni':
+        //         $a = Alumni::whereIsPublish(true)->latest()->get(['company', 'content', 'name', 'url']);
+        //         break;
+        //     case 'company':
+        //         $a = Company::latest()->get(['link', 'url']);
+        //         break;
+        //     case 'section':
+        //         $a = Section::orderBy('id')->get(['title', 'subtitle']);
+        //         break;
+        //     case 'prestation':
+        //         $a = Prestation::latest()->limit(3)->get(['rank', 'title', 'url', 'year']);
+        //         break;
+        //     case 'agenda':
+        //         $a = Agenda::latest()->first(['banner', 'content', 'slug', 'time', 'title']);
+        //         break;
+
+        //     default:
+        //         $a = [];
+        //         break;
+        // }
+        // return response($a);
+
+        // Request once
         return response([
             'carousel' => Carousel::oldest()->get(['description', 'title', 'type', 'url']),
             'video' => Video::whereIsPublish(true)->latest()->get(['thumbnail', 'video']),
@@ -57,16 +91,20 @@ class WelcomeController extends Controller
         ]);
     }
     public function profile($id){
-        if($check = Profile::find($id))
-            $r = response([
+        if($check = Profile::find($id)){
+            $obj = [
                 'content' => $check,
                 'img' => Gallery::whereTarget(1)
                     ->whereType($check->id)
                     ->latest()
-                    ->get('url'),
-                'council' => Council::whereId(1)->first(['title', 'json'])
-            ]);
-        else
+                    ->get('url')
+            ];
+
+            if($check->id === 3)
+                $obj['council'] = Council::whereId(1)->first(['title', 'json']);
+
+            $r = response($obj);
+        }else
             $r = response(['content' => null, 'img' => []]);
 
         return $r;

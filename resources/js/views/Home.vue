@@ -327,6 +327,32 @@ export default {
         agenda: null
     }),
     mounted(){
+        // Request chaining
+        // this.req('section').then(() => {
+        //     this.req('carousel').then(() => {
+        //         if(this.carousel.length){
+        //             this.swiper.slideTo(1)
+        //             this.swiper.autoplay.stop()
+        //             this.swiper.autoplay.start()
+        //         }
+    
+        //         this.req('video').then(r => {
+        //             this.videoConfig.breakpoints[1024].spaceBetween = this.video.length > 1 ? 20 : 0
+    
+        //             this.req('about').then(() => {
+        //                 this.req('agenda').then(() => {
+        //                     this.req('prestation').then(() => {
+        //                         this.req('alumni').then(() => {
+        //                             this.req('company')
+        //                         })
+        //                     })
+        //                 })
+        //             })
+        //         })
+        //     })
+        // })
+
+        // Request once
         axios.get('welcome')
             .then(({ data }) => {
                 this.carousel = data.carousel
@@ -347,8 +373,14 @@ export default {
                     this.swiper.autoplay.start()
                 }
             })
+            .catch(e => console.log(e, e.response))
     },
     methods: {
+        // req(str){
+        //     return axios.get('welcome/' + str).then(r => {
+        //         this[str] = r.data
+        //     })
+        // },
         next(){
             this.swiper.slideNext()
         },
