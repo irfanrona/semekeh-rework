@@ -131,8 +131,8 @@ export default {
             },
             nodeMenu: {
                 edit: { text: 'Edit' },
-                add: { text: 'Add' },
-                remove: { text: 'Remove' }
+                // add: { text: 'Add' },
+                // remove: { text: 'Remove' }
             },
             enableDragDrop: true
         },
