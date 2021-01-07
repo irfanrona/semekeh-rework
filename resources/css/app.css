@@ -273,6 +273,14 @@ ol.breadcrumb > li > span{
     transform: scale(1.2);
 }
 
+.iframe-limiter{
+    height: 50vh;
+}
+.iframe-location{
+    width: 100%;
+    height: 100%;
+}
+
 @media (max-width: 6090px){
     .section-heading p {
         font-size: 12px;

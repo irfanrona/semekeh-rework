@@ -107,7 +107,7 @@
     text-align: center;
 }
 .footer .copyright p{
-    color: var(--white);
+    color: var(--bpi-blue);
     padding: 30px 15px 30px 15px;
     margin: 0;
     font-family: poppins;

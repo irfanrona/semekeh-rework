@@ -1,6 +1,6 @@
 import AppAdmin from '../../components/AppAdmin'
 
-import { Agenda, AgendaDetail, Employee, Gallery, Home, Login, NotFound, Prestation, Public, Search, Study } from '../../views'
+import { About, Agenda, AgendaDetail, Employee, Gallery, Home, Login, NotFound, Prestation, Public, Search, Study } from '../../views'
 import {
     Aaudit, Aemployees, Aagenda,
     Agallery, Ahomepage, Akeyword,
@@ -61,6 +61,10 @@ export default [
         path: '/search',
         name: 'search',
         component: Search
+    }, {
+        path: '/about',
+        name: 'about',
+        component: About
     }, {
         path: '/login',
         name: 'login',

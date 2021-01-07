@@ -26,7 +26,7 @@
                 @enter="enter"
                 @afterEnter="after"
             >
-                <router-view />
+                <router-view :footer="footer" :social="social" />
             </transition>
         </main>
 

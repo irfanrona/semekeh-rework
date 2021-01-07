@@ -57,7 +57,7 @@
             <p>
                 {{ $t("footer.copyright") }} &copy;
                 {{ ` ${new Date().getFullYear()} - ` }}
-                <router-link to="/">{{ appName }}</router-link>
+                <router-link to="/about">{{ appName }}</router-link>
             </p>
         </div>
     </div>

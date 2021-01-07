@@ -16,12 +16,12 @@ export default {
             news: 'Berita',
             prestations: 'Prestasi',
             galleries: 'Galeri',
-            social: 'Media Sosial'
+            social: 'Sosial Media'
         },
     },
     footer: {
         about: 'Tentang',
-        copyright: 'Hak Cipta'
+        copyright: 'Copyright'
     },
     other: {
         agenda: 'Agenda lainnya'

@@ -9,6 +9,7 @@ import Prestation from './Prestation'
 import Gallery from './Gallery'
 import Employee from './Employee'
 import Search from './Search'
+import About from './About'
 
 export {
     Home,
@@ -21,5 +22,6 @@ export {
     Prestation,
     Gallery,
     Employee,
-    Search
+    Search,
+    About
 }
