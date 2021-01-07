@@ -1086,10 +1086,12 @@ button.swiper-pagination-bullet {
 .footer .copyright a{
     color: var(--bpi-blue);
     text-decoration: none;
+    transition: .3s ease all;
 }
 .footer .copyright a:hover{
-    color: var(--white);
+    color: #01141e;
     text-decoration: none;
+    font-size: 1rem;
 }
 .swiper-container {
     width: 100%;
