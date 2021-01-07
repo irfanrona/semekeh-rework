@@ -103,7 +103,7 @@
                         />
                     </svg>
                 </a>
-                <a href="https://vuex.vuejs.org/installation.html" target="_blank" rel="noopener">
+                <a href="https://next.vuex.vuejs.org/installation.html" target="_blank" rel="noopener">
                     <svg
                         fill="none"
                         version="1.1"
