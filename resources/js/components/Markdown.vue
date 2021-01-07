@@ -12,11 +12,26 @@ export default {
         ready: false
     }),
     created(){
-        this.keyword().then(r => {
+        const key = localStorage.getItem('keyword')
+
+        if(key){
+            const json = JSON.parse(key)
+
+            this.data = json.map(i => ({
+                ...i,
+                regex: new RegExp(i.origin_key, 'g')
+            }))
+            this.$emit('mounted', this.data)
+            this.ready = true
+        }else this.keyword().then(r => {
+            let obj = r
+
             this.data = r
 
             this.$emit('mounted', r)
             this.ready = true
+
+            localStorage.setItem('keyword', JSON.stringify(r))
         })
     }
 }

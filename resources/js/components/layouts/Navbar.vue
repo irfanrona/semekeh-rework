@@ -128,10 +128,22 @@ export default {
             }
         })
 
-        if(!this.isLogged)
-            axios.get('navbar').then(r => this.menu = r.data)
+        if(!this.isLogged) this.getMenu()
     },
     methods: {
+        getMenu(){
+            const menu = localStorage.getItem('navbar')
+
+            if(menu){
+                const json = JSON.parse(menu)
+
+                this.menu = json
+            }else axios.get('navbar').then(r => {
+                this.menu = r.data
+
+                localStorage.setItem('navbar', JSON.stringify(r.data))
+            })
+        },
         setStyle(s, ...styles){
             s.position = styles[0]
             s.marginTop = styles[1]
@@ -165,8 +177,7 @@ export default {
     },
     watch: {
         isLogged(a){
-            if(a === false)
-                axios.get('navbar').then(r => this.menu = r.data)
+            if(a === false) this.getMenu()
         }
     }
 }
