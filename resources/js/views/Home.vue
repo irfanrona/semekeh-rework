@@ -252,6 +252,7 @@ import Vue from 'vue'
 import VueHead from 'vue-head'
 import SwiperCore, { Pagination, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
+import { mapGetters, mapActions } from 'vuex'
 
 Vue.use(VueHead)
 SwiperCore.use([Pagination, Autoplay])
@@ -355,25 +356,18 @@ export default {
         // })
 
         // Request once
-        axios.get('welcome')
+        if(this.welcome){
+            this.setData(this.welcome)
+            this.doSwiper()
+        }else axios.get('welcome')
             .then(({ data }) => {
-                this.carousel = data.carousel
-                this.video = data.video
-                this.about = data.about
-                this.alumni = data.alumni
-                this.company = data.company
-                this.section = data.section
-                this.prestation = data.prestation
-                this.agenda = data.agenda
+                this.setData(data)
+                this.setWelcome(data)
 
                 this.videoConfig.breakpoints[1024].spaceBetween = this.video.length > 1 ? 20 : 0
             })
             .then(() => {
-                if(this.carousel.length){
-                    this.swiper.slideTo(1)
-                    this.swiper.autoplay.stop()
-                    this.swiper.autoplay.start()
-                }
+                this.doSwiper()
             })
     },
     methods: {
@@ -382,6 +376,24 @@ export default {
         //         this[str] = r.data
         //     })
         // },
+        setData(data){
+            this.carousel = data.carousel
+            this.video = data.video
+            this.about = data.about
+            this.alumni = data.alumni
+            this.company = data.company
+            this.section = data.section
+            this.prestation = data.prestation
+            this.agenda = data.agenda
+            this.videoConfig.breakpoints[1024].spaceBetween = this.video.length > 1 ? 20 : 0
+        },
+        doSwiper(){
+            if(this.carousel.length){
+                this.swiper.slideTo(1)
+                this.swiper.autoplay.stop()
+                this.swiper.autoplay.start()
+            }
+        },
         next(){
             this.swiper.slideNext()
         },
@@ -400,7 +412,8 @@ export default {
                 thumbnail: thumb
             }
             this.$bvModal.show('video-modal')
-        }
+        },
+        ...mapActions(['setWelcome'])
     },
     computed: {
         swiper(){
@@ -408,7 +421,8 @@ export default {
         },
         sComp(){
             return this.$refs.company.$swiper
-        }
+        },
+        ...mapGetters(['welcome'])
     },
     directive: {
         swiper: directive

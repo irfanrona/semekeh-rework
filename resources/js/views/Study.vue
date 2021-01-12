@@ -54,6 +54,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
     data: () => ({
         data: null,
@@ -65,17 +67,31 @@ export default {
     },
     methods: {
         render(){
+            const g = this.global[this.id]
+
             this.ready = false
 
-            axios.get('study/' + this.id)
+            if(g){
+                if(typeof g.data === 'boolean')
+                    this.$router.push('/404')
+                else this.setData(g)
+            }else axios.get('study/' + this.id)
                 .then(r => {
                     if(r.data){
-                        this.data = r.data
-                        this.dataa = JSON.parse(r.data.content_2)
-                        this.ready = true
-                    }else this.$router.push('/404')
+                        this.setData(r.data)
+                        this.setGlobal({ name: this.id, data: r.data })
+                    }else{
+                        this.setGlobal({ name: this.id, data: false })
+                        this.$router.push('/404')
+                    }
                 })
-        }
+        },
+        setData(data){
+            this.data = data
+            this.dataa = JSON.parse(data.content_2)
+            this.ready = true
+        },
+        ...mapActions(['setGlobal'])
     },
     computed: {
         bread(){
@@ -98,7 +114,8 @@ export default {
         },
         id(){
             return this.$route.params.slug
-        }
+        },
+        ...mapGetters(['global'])
     },
     watch: {
         '$route.params.slug': function() {

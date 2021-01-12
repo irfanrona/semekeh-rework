@@ -61,6 +61,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
     data: () => ({
         data: [],
@@ -69,11 +71,20 @@ export default {
         ready: false
     }),
     mounted(){
-        axios.get('agenda')
+        if(this.media?.agenda){
+            this.setData(this.media.agenda)
+        }else axios.get('agenda')
             .then(r => {
-                this.data = r.data
-                this.ready = true
+                this.setData(r.data)
+                this.setMedia({ name: 'agenda', data: r.data })
             })
+    },
+    methods: {
+        setData(data){
+            this.data = data
+            this.ready = true
+        },
+        ...mapActions(['setMedia'])
     },
     computed: {
         bread(){
@@ -98,7 +109,8 @@ export default {
                 (this.current - 1) * this.perPage,
                 this.current * this.perPage
             )
-        }
+        },
+        ...mapGetters(['media'])
     }
 }
 </script>

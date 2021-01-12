@@ -103,6 +103,7 @@
 <script>
 import SwiperCore, { Pagination, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
+import { mapGetters, mapActions } from 'vuex'
 
 SwiperCore.use([Pagination, Autoplay])
 
@@ -136,17 +137,36 @@ export default {
     },
     methods: {
         render(){
+            const slug = this.$route.params.slug,
+                g = this.global[slug]
+
             this.ready = false
 
-            axios.get('agenda/' + this.$route.params.slug)
+            if(g){
+                if(typeof g.data === 'boolean')
+                    this.$router.push('/404')
+                else this.setData(g)
+            }
+
+            axios.get('agenda/' + slug)
                 .then(r => {
                     if(r.data){
-                        this.data = r.data.agenda
-                        this.img = r.data.img
                         this.other = r.data.other
-                        this.ready = true
-                    }else this.$router.push('/404')
+
+                        if(!g){
+                            this.setData(r.data)
+                            this.setGlobal({ name: slug, data: r.data })
+                        }
+                    }else{
+                        this.setGlobal({ name: slug, data: false })
+                        this.$router.push('/404')
+                    }
                 })
+        },
+        setData(data){
+            this.data = data.agenda
+            this.img = data.img
+            this.ready = true
         },
         next(){
             this.swiper.slideNext()
@@ -154,6 +174,7 @@ export default {
         prev(){
             this.swiper.slidePrev()
         },
+        ...mapActions(['setGlobal'])
     },
     computed: {
         bread(){
@@ -177,6 +198,7 @@ export default {
         swiper(){
             return this.$refs.carousel.$swiper
         },
+        ...mapGetters(['global'])
     },
     directive: {
         swiper: directive

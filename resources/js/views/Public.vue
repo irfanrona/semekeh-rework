@@ -4,8 +4,13 @@
             <div class="container h-100">
                 <b-row class="h-100 align-items-center">
                     <b-col cols="12">
-                        <h2 class="page-title">{{ content ? content.title : bread[bread.length - 1].name }}</h2>
-                        <p v-if="content && content.subtitle" class="text-white">{{ content.subtitle }}</p>
+                        <h2
+                            class="page-title"
+                        >{{ content ? content.title : bread[bread.length - 1].name }}</h2>
+                        <p
+                            v-if="content && content.subtitle"
+                            class="text-white"
+                        >{{ content.subtitle }}</p>
                         <b-breadcrumb>
                             <b-breadcrumb-item
                                 v-for="(i, k) in bread"
@@ -81,6 +86,7 @@
 import SwiperCore, { Pagination, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 import Chart from '../components/Chart'
+import { mapGetters, mapActions } from 'vuex'
 
 SwiperCore.use([Pagination, Autoplay])
 
@@ -127,20 +133,29 @@ export default {
         render(){
             this.ready = false
 
-            if(this.id > 0)
-                axios.get('profile/' + this.id)
+            if(this.id > 0){
+                const g = this.global[this.id]
+                if(g)
+                    this.setData(g)
+                else axios.get('profile/' + this.id)
                     .then(r => {
-                        this.content = r.data.content
-                        this.img = r.data.img
-                        if(this.id === 3 && r.data.council)
-                            this.council = {
-                                title: r.data.council.title,
-                                json: JSON.parse(r.data.council.json)
-                            }
-                        else this.council = { title: '', json: [] }
-                        this.ready = true
+                        this.setData(r.data)
+                        this.setGlobal({ name: this.id, data: r.data })
                     })
-            else this.$router.push('/404')
+            }else this.$router.push('/404')
+        },
+        setData(data){
+            this.content = data.content
+            this.img = data.img
+
+            if(this.id === 3 && data.council)
+                this.council = {
+                    title: data.council.title,
+                    json: JSON.parse(data.council.json)
+                }
+            else this.council = { title: '', json: [] }
+
+            this.ready = true
         },
         next(){
             this.swiper.slideNext()
@@ -148,6 +163,7 @@ export default {
         prev(){
             this.swiper.slidePrev()
         },
+        ...mapActions(['setGlobal'])
     },
     computed: {
         bread(){
@@ -187,6 +203,7 @@ export default {
         swiper(){
             return this.$refs.carousel.$swiper
         },
+        ...mapGetters(['global'])
     },
     directive: {
         swiper: directive

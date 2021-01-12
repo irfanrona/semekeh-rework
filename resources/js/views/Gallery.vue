@@ -75,7 +75,12 @@
             </div>
             <b-row class="mt-3">
                 <b-col class="share-text" cols="12">
-                    <a class="mx-1" :href="`http://twitter.com/share?url=${view}`" rel="noopener" target="_blank">
+                    <a
+                        class="mx-1"
+                        :href="`http://twitter.com/share?url=${view}`"
+                        rel="noopener"
+                        target="_blank"
+                    >
                         <b-avatar variant="bpi-blue">
                             <fa :icon="['fab', 'twitter']" />
                         </b-avatar>
@@ -112,6 +117,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
     data: () => ({
         data: [],
@@ -124,11 +131,12 @@ export default {
         isVideo: '',
     }),
     mounted(){
-        axios.get('gallery')
+        if(this.media?.gal){
+            this.setData(this.media.gal)
+        }else axios.get('gallery')
             .then(r => {
-                this.data = r.data.img
-                this.ready = true
-                this.video = r.data.video
+                this.setData(r.data)
+                this.setMedia({ name: 'gal', data: r.data })
             })
     },
     methods: {
@@ -137,6 +145,12 @@ export default {
             this.isVideo = video
             this.$bvModal.show('come-here-mortal')
         },
+        setData(data){
+            this.data = data.img
+            this.video = data.video
+            this.ready = true
+        },
+        ...mapActions(['setMedia'])
     },
     computed: {
         bread(){
@@ -167,7 +181,8 @@ export default {
                 (this.currentt - 1) * this.perPage,
                 this.currentt * this.perPage
             )
-        }
+        },
+        ...mapGetters(['media'])
     }
 }
 </script>

@@ -88,6 +88,7 @@
 <script>
 import SwiperCore, { Pagination, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
+import { mapGetters, mapActions } from 'vuex'
 
 SwiperCore.use([Pagination, Autoplay])
 
@@ -123,22 +124,28 @@ export default {
         },
     }),
     mounted(){
-        axios.get('employee')
+        if(this.media?.emp){
+            this.setData(this.media.emp)
+        }else axios.get('employee')
             .then(r => {
-                const t = r.data.employee
-                let a = this.data
-
-                a.first = t.filter(i => i.type === 1 && i.child_type === 1)
-                a.firstt = t.filter(i => i.type === 1 && i.child_type === 2)
-                a.firsttt = this.sort(t.filter(i => i.type === 1 && i.child_type === 3))
-                a.second = this.sort(t.filter(i => i.type === 2))
-                a.third = this.sort(t.filter(i => i.type === 3))
-
-                this.img = r.data.img
-                this.ready = true
+                this.setData(r.data)
+                this.setMedia({ name: 'emp', data: r.data })
             })
     },
     methods: {
+        setData(d){
+            const t = d.employee
+            let a = this.data
+
+            a.first = t.filter(i => i.type === 1 && i.child_type === 1)
+            a.firstt = t.filter(i => i.type === 1 && i.child_type === 2)
+            a.firsttt = this.sort(t.filter(i => i.type === 1 && i.child_type === 3))
+            a.second = this.sort(t.filter(i => i.type === 2))
+            a.third = this.sort(t.filter(i => i.type === 3))
+
+            this.img = d.img
+            this.ready = true
+        },
         next(){
             this.swiper.slideNext()
         },
@@ -147,7 +154,8 @@ export default {
         },
         sort(data){
             return data.sort((a, b) => a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1)
-        }
+        },
+        ...mapActions(['setMedia'])
     },
     computed: {
         bread(){
@@ -170,6 +178,7 @@ export default {
         swiper(){
             return this.$refs.carousel.$swiper
         },
+        ...mapGetters(['media'])
     },
     directive: {
         swiper: directive
