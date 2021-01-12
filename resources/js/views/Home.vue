@@ -363,8 +363,6 @@ export default {
             .then(({ data }) => {
                 this.setData(data)
                 this.setWelcome(data)
-
-                this.videoConfig.breakpoints[1024].spaceBetween = this.video.length > 1 ? 20 : 0
             })
             .then(() => {
                 this.doSwiper()
