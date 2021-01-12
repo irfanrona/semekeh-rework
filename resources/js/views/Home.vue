@@ -167,7 +167,7 @@
                     <b-col cols="12">
                         <div class="section-heading">
                             <h1 class="text-light">{{ section[4].title }}</h1>
-                            <p>{{ section[4].subtitle }}</p>
+                            <p class="text-bpi-yellow">{{ section[4].subtitle }}</p>
                         </div>
                     </b-col>
                 </b-row>
@@ -220,11 +220,13 @@
             </b-row>
 
             <div class="text-center">
-                <b-btn variant="bpi-blue" slot="button-prev" @click="prevv()">
+                <b-btn variant="bpi-blue" @click="prevv()">
                     <fa icon="chevron-left" />
+                    <span class="sr-only">{{ $t('rick_roll') }}</span>
                 </b-btn>
-                <b-btn variant="bpi-blue" slot="button-next" @click="nextt()">
+                <b-btn variant="bpi-blue" @click="nextt()">
                     <fa icon="chevron-right" />
+                    <span class="sr-only">{{ $t('rick_roll') }}</span>
                 </b-btn>
             </div>
 

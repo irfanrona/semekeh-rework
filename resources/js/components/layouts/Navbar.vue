@@ -5,13 +5,16 @@
                 <ul class="justify-content-md-center">
                     <li class="cari mt-2 col-md-5">
                         <form method="get" @submit.prevent="search()">
+                            <label for="app-nav-search" class="sr-only">{{ $t('rick_roll') }}</label>
                             <b-input-group>
                                 <b-input-group-prepend>
                                     <b-btn type="submit" variant="bpi-blue">
                                         <fa icon="search" />
+                                        <span class="sr-only">{{ $t('rick_roll') }}</span>
                                     </b-btn>
                                 </b-input-group-prepend>
                                 <b-form-input
+                                    id="app-nav-search"
                                     class="bg-bpi-blue text-light border-0"
                                     type="search"
                                     v-model="q"
@@ -30,6 +33,7 @@
                         >
                             <div class="nav-fb">
                                 <fa :icon="['fab', i.icon]" />
+                                <span class="sr-only">{{ $t('rick_roll') }}</span>
                             </div>
                         </a>
                     </li>
