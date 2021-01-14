@@ -158,10 +158,10 @@ export default {
             this.ready = true
         },
         next(){
-            this.swiper.slideNext()
+            this.swiper?.slideNext()
         },
         prev(){
-            this.swiper.slidePrev()
+            this.swiper?.slidePrev()
         },
         ...mapActions(['setGlobal'])
     },
@@ -201,7 +201,7 @@ export default {
             return this.$route.params.id
         },
         swiper(){
-            return this.$refs.carousel.$swiper
+            return this.$refs.carousel?.$swiper
         },
         ...mapGetters(['global'])
     },

@@ -147,10 +147,10 @@ export default {
             this.ready = true
         },
         next(){
-            this.swiper.slideNext()
+            this.swiper?.slideNext()
         },
         prev(){
-            this.swiper.slidePrev()
+            this.swiper?.slidePrev()
         },
         sort(data){
             return data.sort((a, b) => a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1)
@@ -176,7 +176,7 @@ export default {
             return obj
         },
         swiper(){
-            return this.$refs.carousel.$swiper
+            return this.$refs.carousel?.$swiper
         },
         ...mapGetters(['media'])
     },

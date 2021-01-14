@@ -408,22 +408,22 @@ export default {
         },
         doSwiper(){
             if(this.carousel.length){
-                this.swiper.slideTo(1)
-                this.swiper.autoplay.stop()
-                this.swiper.autoplay.start()
+                this.swiper?.slideTo(1)
+                this.swiper?.autoplay?.stop()
+                this.swiper?.autoplay?.start()
             }
         },
         next(){
-            this.swiper.slideNext()
+            this.swiper?.slideNext()
         },
         prev(){
-            this.swiper.slidePrev()
+            this.swiper?.slidePrev()
         },
         nextt(){
-            this.sComp.slideNext()
+            this.sComp?.slideNext()
         },
         prevv(){
-            this.sComp.slidePrev()
+            this.sComp?.slidePrev()
         },
         openVideo(vid, thumb){
             this.modalVideo = {
@@ -436,10 +436,10 @@ export default {
     },
     computed: {
         swiper(){
-            return this.$refs.carousel.$swiper
+            return this.$refs.carousel?.$swiper
         },
         sComp(){
-            return this.$refs.company.$swiper
+            return this.$refs.company?.$swiper
         },
         ...mapGetters(['welcome'])
     },
