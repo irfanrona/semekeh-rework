@@ -45,7 +45,13 @@
                 <div class="col-md-6">
                     <div class="px-0 logo">
                         <router-link :to="isLogged ? '/admin/homepage' : '/'">
-                            <img :src="sauce('img/logo.webp')" :alt="appName" />
+                            <img
+                                class="img-fluid"
+                                width="400"
+                                height="69"
+                                :src="sauce('img/logo.webp')"
+                                :alt="appName"
+                            />
                         </router-link>
                     </div>
                 </div>
@@ -56,7 +62,13 @@
         <div class="navbar-responsive col-md-12" id="navbar-responsive">
             <div class="logo">
                 <router-link :to="isLogged ? '/admin/homepage' : '/'">
-                    <img :src="sauce('img/logo.webp')" :alt="appName" />
+                    <img
+                        class="img-fluid"
+                        width="350"
+                        height="60"
+                        :src="sauce('img/logo.webp')"
+                        :alt="appName"
+                    />
                 </router-link>
             </div>
             <div class="bungkus-menu">

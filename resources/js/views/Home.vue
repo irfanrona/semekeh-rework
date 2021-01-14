@@ -12,7 +12,7 @@
                         <p>{{ i.description }}</p>
                     </div>
                     <div class="img-slider-ilustrasi">
-                        <img :src="sauce('storage/' + i.url)" :alt="i.title" />
+                        <img class="img-fluid" :src="sauce('storage/' + i.url)" :alt="i.title" />
                     </div>
                 </div>
                 <div v-else-if="i.type === 2" class="isi-content-slider">
@@ -65,6 +65,9 @@
                     <swiper class="swiper-bpi-video" :options="videoConfig">
                         <swiper-slide class="img-video" v-for="(i, k) in video" :key="k">
                             <img
+                                class="img-fluid"
+                                width="240"
+                                height="150"
                                 :src="sauce('storage/' + i.thumbnail)"
                                 :alt="appName"
                                 @click="openVideo(i.video, i.thumbnail)"
@@ -84,7 +87,7 @@
                 </b-col>
                 <b-col sm="12" md="12" lg="1" />
                 <b-col
-                    class="about-img"
+                    class="about-img img-fluid"
                     sm="12"
                     md="12"
                     lg="5"
@@ -139,7 +142,13 @@
                 <b-col v-for="(i, k) in prestation" :key="k" sm="12" md="12" lg="4">
                     <div class="single-thumb-juara">
                         <div class="card-img-thumb">
-                            <img :src="sauce('storage/' + i.url)" :alt="i.title" />
+                            <img
+                                class="img-fluid"
+                                width="450"
+                                height="350"
+                                :src="sauce('storage/' + i.url)"
+                                :alt="i.title"
+                            />
                         </div>
                         <div class="card-body text-center">
                             <h4 class="text-bpi-blue">{{ i.title }}</h4>
@@ -182,7 +191,13 @@
                     >
                         <div class="single-thumb-artikel">
                             <div class="card-img-thumb">
-                                <img :src="sauce('storage/' + i.url)" :alt="i.name" />
+                                <img
+                                    class="img-fluid"
+                                    width="420"
+                                    height="350"
+                                    :src="sauce('storage/' + i.url)"
+                                    :alt="i.name"
+                                />
                             </div>
                             <b-row>
                                 <b-col sm="12" md="8" lg="8">
@@ -233,7 +248,13 @@
             <swiper ref="company" :options="companyConfig">
                 <swiper-slide v-for="(i, k) in company" :key="k" class="company-slider">
                     <a class="company-img" :href="i.link" target="_blank" rel="noopener">
-                        <img :src="sauce('storage/' + i.url)" :alt="appName" />
+                        <img
+                            class="img-fluid"
+                            width="450"
+                            height="75"
+                            :src="sauce('storage/' + i.url)"
+                            :alt="appName"
+                        />
                     </a>
                 </swiper-slide>
             </swiper>

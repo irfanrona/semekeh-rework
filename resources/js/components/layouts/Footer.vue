@@ -41,7 +41,12 @@
                     >
                         <b-row no-gutters>
                             <b-col sm="12" md="4" lg="4">
-                                <v-img :src="sauce('storage/' + agenda.banner)" class="mb-2" />
+                                <v-img
+                                    :src="sauce('storage/' + agenda.banner)"
+                                    class="mb-2 img-fluid"
+                                    width="430"
+                                    height="290"
+                                />
                             </b-col>
                             <b-col sm="12" md="7" lg="7">
                                 <div class="px-2">
