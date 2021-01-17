@@ -166,6 +166,9 @@ ol.breadcrumb > li > span{
 .cursor-pointer{
     cursor: pointer;
 }
+.cursor-default{
+    cursor: default;
+}
 .bpi-blockquote{
     padding-left: 5%;
 }

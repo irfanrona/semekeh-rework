@@ -1,29 +1,7 @@
 <template>
     <div>
-        <header class="breadcrumb-area bg-bpi-blue">
-            <div class="container h-100">
-                <b-row class="h-100 align-items-center">
-                    <b-col cols="12">
-                        <h2 class="page-title">{{ data.title || $t('navbar.medias.agenda') }}</h2>
-                        <p v-if="data.time" class="text-white">{{ data.time }}</p>
-                        <b-breadcrumb>
-                            <b-breadcrumb-item
-                                v-for="(i, k) in bread"
-                                :key="k"
-                                :active="k + 1 === bread.length"
-                            >
-                                <span v-if="k + 1 === bread.length">
-                                    <strong class="text-decoration-underline">{{ i.name }}</strong>
-                                </span>
-                                <span v-else>
-                                    <router-link class="text-white" :to="i.to">{{ i.name }}</router-link>
-                                </span>
-                            </b-breadcrumb-item>
-                        </b-breadcrumb>
-                    </b-col>
-                </b-row>
-            </div>
-        </header>
+        <bread :title="data.title || $t('navbar.medias.agenda')" />
+
         <b-container v-if="ready" class="my-4">
             <b-row>
                 <b-col sm="12" md="8" lg="8">
@@ -177,24 +155,6 @@ export default {
         ...mapActions(['setGlobal'])
     },
     computed: {
-        bread(){
-            let obj = [],
-                temp = '',
-                path = this.$route.path.split('/')
-
-            path.shift()
-
-            path.forEach(e => {
-                temp += '/' + e
-
-                obj.push({
-                    name: e.replace(/-/g, ' '),
-                    to: temp
-                })
-            })
-
-            return obj
-        },
         swiper(){
             return this.$refs.carousel?.$swiper
         },

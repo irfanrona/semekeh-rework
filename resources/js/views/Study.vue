@@ -1,31 +1,7 @@
 <template>
     <div>
-        <header class="breadcrumb-area bg-bpi-blue">
-            <div class="container h-100">
-                <b-row class="h-100 align-items-center">
-                    <b-col cols="12">
-                        <h2 class="page-title">{{ bread[bread.length - 1].name }}</h2>
-                        <b-breadcrumb>
-                            <b-breadcrumb-item
-                                v-for="(i, k) in bread"
-                                :key="k"
-                                :active="k + 1 === bread.length"
-                            >
-                                <span v-if="k + 1 === bread.length">
-                                    <strong class="text-decoration-underline">{{ i.name }}</strong>
-                                </span>
-                                <a
-                                    v-else
-                                    class="text-white"
-                                    href="#"
-                                    style="cursor: default"
-                                >{{ i.name }}</a>
-                            </b-breadcrumb-item>
-                        </b-breadcrumb>
-                    </b-col>
-                </b-row>
-            </div>
-        </header>
+        <bread use-bread :disable="[0]" />
+
         <b-container v-if="ready" class="my-4">
             <b-row>
                 <b-col sm="12" md="8" lg="8">
@@ -94,24 +70,6 @@ export default {
         ...mapActions(['setGlobal'])
     },
     computed: {
-        bread(){
-            let obj = [],
-                temp = '',
-                path = this.$route.path.split('/')
-
-            path.shift()
-
-            path.forEach(e => {
-                temp += '/' + e
-
-                obj.push({
-                    name: e.replace(/-/g, ' '),
-                    to: temp
-                })
-            })
-
-            return obj
-        },
         id(){
             return this.$route.params.slug
         },

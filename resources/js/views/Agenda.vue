@@ -1,28 +1,7 @@
 <template>
     <div>
-        <header class="breadcrumb-area bg-bpi-blue">
-            <div class="container h-100">
-                <b-row class="h-100 align-items-center">
-                    <b-col cols="12">
-                        <h2 class="page-title">{{ $t('navbar.medias.agenda') }}</h2>
-                        <b-breadcrumb>
-                            <b-breadcrumb-item
-                                v-for="(i, k) in bread"
-                                :key="k"
-                                :active="k + 1 === bread.length"
-                            >
-                                <span v-if="k + 1 === bread.length">
-                                    <strong class="text-decoration-underline">{{ i.name }}</strong>
-                                </span>
-                                <span v-else>
-                                    <router-link class="text-white" :to="i.to">{{ i.name }}</router-link>
-                                </span>
-                            </b-breadcrumb-item>
-                        </b-breadcrumb>
-                    </b-col>
-                </b-row>
-            </div>
-        </header>
+        <bread :title="$t('navbar.medias.agenda')" />
+
         <b-container v-if="ready" class="my-4">
             <b-row id="agenda-list">
                 <b-col v-for="(i, k) in loop" :key="k" sm="12" md="6" lg="4" class="my-3">
@@ -87,23 +66,6 @@ export default {
         ...mapActions(['setMedia'])
     },
     computed: {
-        bread(){
-            let obj = [],
-                path = this.$route.path.split('/')
-
-            path.shift()
-
-            path.reduce((a, b, c) => {
-                obj.push({
-                    name: b.replace(/-/g, ' '),
-                    to: a[c - 1] ? `/${a[c - 1].name}/${b}` : '/' + b
-                })
-
-                return obj
-            }, [])
-
-            return obj
-        },
         loop(){
             return this.data.slice(
                 (this.current - 1) * this.perPage,
