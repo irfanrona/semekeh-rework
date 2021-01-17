@@ -1,28 +1,7 @@
 <template>
     <div>
-        <header class="breadcrumb-area bg-bpi-blue">
-            <div class="container h-100">
-                <b-row class="h-100 align-items-center">
-                    <b-col cols="12">
-                        <h2 class="page-title">{{ bread[bread.length - 1].name }}</h2>
-                        <b-breadcrumb>
-                            <b-breadcrumb-item
-                                v-for="(i, k) in bread"
-                                :key="k"
-                                :active="k + 1 === bread.length"
-                            >
-                                <span v-if="k + 1 === bread.length">
-                                    <strong class="text-decoration-underline">{{ i.name }}</strong>
-                                </span>
-                                <span v-else>
-                                    <router-link class="text-white" :to="i.to">{{ i.name }}</router-link>
-                                </span>
-                            </b-breadcrumb-item>
-                        </b-breadcrumb>
-                    </b-col>
-                </b-row>
-            </div>
-        </header>
+        <bread use-bread />
+
         <b-container v-if="ready" class="my-4">
             <div v-if="agenda.length">
                 <h3 class="text-bpi-blue">{{ $t('navbar.medias.agenda') }}</h3>
@@ -135,23 +114,6 @@ export default {
         }
     },
     computed: {
-        bread(){
-            let obj = [],
-                path = this.$route.path.split('/')
-
-            path.shift()
-
-            path.reduce((a, b, c) => {
-                obj.push({
-                    name: b.replace(/-/g, ' '),
-                    to: a[c - 1] ? `/${a[c - 1].name}/${b}` : '/' + b
-                })
-
-                return obj
-            }, [])
-
-            return obj
-        },
         loop(){
             return this.agenda.slice(
                 (this.current - 1) * this.perPage,

@@ -48,7 +48,7 @@ window.addEventListener('devtoolschange', e => {
     }
 })
 
-if ('serviceWorker' in navigator) {
+if (process.env.MIX_APP_ENV === 'production' && 'serviceWorker' in navigator) {
     window.addEventListener('load', function () {
         navigator.serviceWorker.register('/service-worker.js')
     })

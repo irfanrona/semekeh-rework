@@ -12,6 +12,7 @@ npm-debug.log
 yarn-error.log
 # composer.lock
 # package-lock.json
+/public/*.js
 /public/js/*.map
 /public/css/*.map
 .vscode

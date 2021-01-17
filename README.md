@@ -26,6 +26,8 @@ Recaptcha key and secret key can be obtained at [Google Recaptcha](https://www.g
 - Clone the project `git clone https://github.com/AnOrdinaryPeople/semekeh-rework.git`
 - Duplicate environment `cp .env.example .env`
 - Set up environment
+  - APP_ENV = if you want use service worker use `production`, otherwise use `local`
+  - APP_URL = `http://localhost:8000`
   - DB_DATABASE = `db_smk_rework`
   - RECAPTCHA_SITE_KEY = `YOUR_RECAPTCHA_SITE_KEY`
   - RECAPTCHA_SECRET = `YOUR_RECAPTCHA_SECRET_KEY`
@@ -34,7 +36,7 @@ Recaptcha key and secret key can be obtained at [Google Recaptcha](https://www.g
 - Generate key `php artisan key:generate`
 - Create storage `php artisan storage:link`
 - Run the server `php artisan serve`
-- Open new terminal then migrate and seed `php artisan migrate --seed`
+- Open **new terminal** then migrate and seed `php artisan migrate --seed`
 
 # Credentials
 - super@smkbpi.sch.id 12345678
