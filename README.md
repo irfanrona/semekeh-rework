@@ -8,7 +8,7 @@
 - Mysql >= 15.1 Distrib 10.4.11-MariaDB
 
 # Installation local
-### PHP Config
+## PHP Config
 open `php.ini` at `XAMPP\php\php.ini`
 find and edit with these:
 ```
@@ -17,12 +17,12 @@ upload_max_filesize=1000M
 post_max_size=1000M
 ```
 
-### Google Recaptcha
+## Google Recaptcha
 Recaptcha key and secret key can be obtained at [Google Recaptcha](https://www.google.com/recaptcha/admin)
 - Recaptcha version 2
 - domain `localhost` and `127.0.0.1`
 
-### Install
+## Install
 - Clone the project `git clone https://github.com/AnOrdinaryPeople/semekeh-rework.git`
 - Duplicate environment `cp .env.example .env`
 - Set up environment
@@ -41,3 +41,8 @@ Recaptcha key and secret key can be obtained at [Google Recaptcha](https://www.g
 # Credentials
 - super@smkbpi.sch.id 12345678
 - admin@smkbpi.sch.id 12345678
+
+# Splitted Version
+- [API](https://github.com/AnOrdinaryPeople/semekeh-rework-api)
+- [Guest](https://github.com/AnOrdinaryPeople/semekeh-rework-guest)
+- [Admin](https://github.com/AnOrdinaryPeople/semekeh-rework-admin)
