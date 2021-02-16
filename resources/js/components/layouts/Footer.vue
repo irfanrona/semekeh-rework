@@ -25,6 +25,7 @@
                             >
                                 <b-avatar size="2rem" variant="bpi-yellow">
                                     <fa class="text-bpi-blue" :icon="['fab', i.icon]" />
+                                    <span class="sr-only">{{ $t('rick_roll') }}</span>
                                 </b-avatar>
                             </a>
                         </li>

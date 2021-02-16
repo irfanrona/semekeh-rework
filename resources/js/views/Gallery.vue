@@ -1,28 +1,7 @@
 <template>
     <div>
-        <header class="breadcrumb-area bg-bpi-blue">
-            <div class="container h-100">
-                <b-row class="h-100 align-items-center">
-                    <b-col cols="12">
-                        <h2 class="page-title">{{ $t('navbar.medias.galleries') }}</h2>
-                        <b-breadcrumb>
-                            <b-breadcrumb-item
-                                v-for="(i, k) in bread"
-                                :key="k"
-                                :active="k + 1 === bread.length"
-                            >
-                                <span v-if="k + 1 === bread.length">
-                                    <strong class="text-decoration-underline">{{ i.name }}</strong>
-                                </span>
-                                <span v-else>
-                                    <router-link class="text-white" :to="i.to">{{ i.name }}</router-link>
-                                </span>
-                            </b-breadcrumb-item>
-                        </b-breadcrumb>
-                    </b-col>
-                </b-row>
-            </div>
-        </header>
+        <bread :title="$t('navbar.medias.galleries')" />
+
         <b-container v-if="ready" class="my-4">
             <b-card-group columns id="ehe">
                 <b-card
@@ -75,7 +54,12 @@
             </div>
             <b-row class="mt-3">
                 <b-col class="share-text" cols="12">
-                    <a class="mx-1" :href="`http://twitter.com/share?url=${view}`" rel="noopener" target="_blank">
+                    <a
+                        class="mx-1"
+                        :href="`http://twitter.com/share?url=${view}`"
+                        rel="noopener"
+                        target="_blank"
+                    >
                         <b-avatar variant="bpi-blue">
                             <fa :icon="['fab', 'twitter']" />
                         </b-avatar>
@@ -112,6 +96,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
     data: () => ({
         data: [],
@@ -124,11 +110,12 @@ export default {
         isVideo: '',
     }),
     mounted(){
-        axios.get('gallery')
+        if(this.media?.gal){
+            this.setData(this.media.gal)
+        }else axios.get('gallery')
             .then(r => {
-                this.data = r.data.img
-                this.ready = true
-                this.video = r.data.video
+                this.setData(r.data)
+                this.setMedia({ name: 'gal', data: r.data })
             })
     },
     methods: {
@@ -137,25 +124,14 @@ export default {
             this.isVideo = video
             this.$bvModal.show('come-here-mortal')
         },
+        setData(data){
+            this.data = data.img
+            this.video = data.video
+            this.ready = true
+        },
+        ...mapActions(['setMedia'])
     },
     computed: {
-        bread(){
-            let obj = [],
-                path = this.$route.path.split('/')
-
-            path.shift()
-
-            path.reduce((a, b, c) => {
-                obj.push({
-                    name: b.replace(/-/g, ' '),
-                    to: a[c - 1] ? `/${a[c - 1].name}/${b}` : '/' + b
-                })
-
-                return obj
-            }, [])
-
-            return obj
-        },
         nani(){
             return this.data.slice(
                 (this.current - 1) * this.perPage,
@@ -167,7 +143,8 @@ export default {
                 (this.currentt - 1) * this.perPage,
                 this.currentt * this.perPage
             )
-        }
+        },
+        ...mapGetters(['media'])
     }
 }
 </script>

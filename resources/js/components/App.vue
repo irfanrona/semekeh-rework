@@ -26,7 +26,7 @@
                 @enter="enter"
                 @afterEnter="after"
             >
-                <router-view :footer="footer" :social="social" />
+                <router-view :footer="checkAbout(false)" :social="checkAbout(true)" />
             </transition>
         </main>
 
@@ -103,6 +103,11 @@ export default {
                     this.$router.push('/')
                     console.clear()
                 })
+        },
+        checkAbout(bool){
+            return this.$route.name === 'about'
+                ? bool ? this.social : this.footer
+                : false
         },
     },
     computed: {

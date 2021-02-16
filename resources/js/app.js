@@ -17,6 +17,7 @@ import Markdown from './components/Markdown'
 import InputMark from './components/InputMark'
 import Share from './components/Share'
 import Img from './components/Img'
+import Bread from './components/Bread'
 
 require('./plugins/markdown')
 
@@ -34,6 +35,7 @@ Vue.component('markdown', Markdown)
 Vue.component('input-markdown', InputMark)
 Vue.component('share', Share)
 Vue.component('v-img', Img)
+Vue.component('bread', Bread)
 
 new Vue({
     i18n,

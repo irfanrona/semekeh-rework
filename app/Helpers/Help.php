@@ -90,7 +90,7 @@ function kebabCase($text){
  * 
  * @param any $path
  * 
- * @return \Intervention\Image\Image
+ * @return \Intervention\Image\Image|boolean
  */
 function imgCompress($path){
     if(is_array($path)){
@@ -104,4 +104,27 @@ function imgCompress($path){
     }
     
     return false;
+}
+
+/**
+ * Send time based on seconds.
+ * 
+ * @param string $str
+ * 
+ * @return integer
+ */
+function timer($str = ''){
+    switch (strtolower($str)) {
+        case 'year':
+            return 31557600;
+        case 'month':
+            return 2419200;
+        case 'week':
+            return 604800;
+        case 'day':
+            return 86400;
+
+        default:
+            return 259200; // 3 days
+    }
 }

@@ -37,7 +37,7 @@
             <li>
                 <router-link class="dropbtn" to="/employees">{{ $t("navbar.employees") }}</router-link>
             </li>
-            <li>
+            <li aria-labelledby="app-nav-media">
                 <a
                     class="dropbtn"
                     :class="mediaa()"
@@ -65,7 +65,7 @@
                     >{{ $t("navbar.medias." + i) }}</router-link>
                 </b-collapse>
             </li>
-            <li>
+            <li aria-labelledby="app-nav-study">
                 <a
                     class="dropbtn"
                     :class="$route.name === 'study' ? 'active' : ''"
@@ -93,7 +93,7 @@
                     >{{ i.title }}</router-link>
                 </b-collapse>
             </li>
-            <li>
+            <li aria-labelledby="app-nav-profile">
                 <a
                     class="dropbtn"
                     :class="$route.name === 'profile' ? 'active' : ''"

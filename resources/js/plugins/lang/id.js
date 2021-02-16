@@ -123,5 +123,6 @@ export default {
             social: 'Media Sosial',
             footer: 'Footer Tentang'
         }
-    }
+    },
+    rick_roll: 'dQw4w9WgXcQ'
 }

@@ -5,13 +5,16 @@
                 <ul class="justify-content-md-center">
                     <li class="cari mt-2 col-md-5">
                         <form method="get" @submit.prevent="search()">
+                            <label for="app-nav-search" class="sr-only">{{ $t('rick_roll') }}</label>
                             <b-input-group>
                                 <b-input-group-prepend>
                                     <b-btn type="submit" variant="bpi-blue">
                                         <fa icon="search" />
+                                        <span class="sr-only">{{ $t('rick_roll') }}</span>
                                     </b-btn>
                                 </b-input-group-prepend>
                                 <b-form-input
+                                    id="app-nav-search"
                                     class="bg-bpi-blue text-light border-0"
                                     type="search"
                                     v-model="q"
@@ -30,6 +33,7 @@
                         >
                             <div class="nav-fb">
                                 <fa :icon="['fab', i.icon]" />
+                                <span class="sr-only">{{ $t('rick_roll') }}</span>
                             </div>
                         </a>
                     </li>
@@ -41,7 +45,13 @@
                 <div class="col-md-6">
                     <div class="px-0 logo">
                         <router-link :to="isLogged ? '/admin/homepage' : '/'">
-                            <img :src="sauce('img/logo.webp')" :alt="appName" />
+                            <img
+                                class="img-fluid"
+                                width="400"
+                                height="69"
+                                :src="sauce('img/logo.webp')"
+                                :alt="appName"
+                            />
                         </router-link>
                     </div>
                 </div>
@@ -52,7 +62,13 @@
         <div class="navbar-responsive col-md-12" id="navbar-responsive">
             <div class="logo">
                 <router-link :to="isLogged ? '/admin/homepage' : '/'">
-                    <img :src="sauce('img/logo.webp')" :alt="appName" />
+                    <img
+                        class="img-fluid"
+                        width="350"
+                        height="60"
+                        :src="sauce('img/logo.webp')"
+                        :alt="appName"
+                    />
                 </router-link>
             </div>
             <div class="bungkus-menu">
@@ -66,6 +82,7 @@
                     <div class="bar1"></div>
                     <div class="bar2"></div>
                     <div class="bar3"></div>
+                    <span class="sr-only">{{ $t('rick_roll') }}</span>
                 </div>
             </div>
         </div>

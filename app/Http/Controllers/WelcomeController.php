@@ -20,138 +20,206 @@ use App\Models\Social;
 use App\Models\Study;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class WelcomeController extends Controller
 {
     public function index(){
-    	return view('welcome', ['data' => Meta::orderBy('id')->get(['type', 'key', 'value'])]);
+        if($c = Cache::get('meta'))
+            $data = $c;
+        else{
+            $data = ['data' => Meta::orderBy('id')->get(['type', 'key', 'value'])];
+
+            Cache::put('meta', $data, timer('month'));
+        }
+
+    	return view('welcome', $data);
     }
     public function navbar(){
-        return response([
-            'bpi' => Keyword::find(1)->value,
-            'study' => Study::orderBy('title')->get(['title', 'slug'])
-        ]);
+        if($c = Cache::get('navbar'))
+            $data = $c;
+        else{
+            $data = [
+                'bpi' => Keyword::find(1)->value,
+                'study' => Study::orderBy('title')->get(['title', 'slug'])
+            ];
+
+            Cache::put('navbar', $data, timer('month'));
+        }
+
+        return response($data);
     }
     public function footer(){
-        return response(Agenda::latest()->first(['banner', 'title', 'time', 'slug']));
+        if($c = Cache::get('footer'))
+            $data = $c;
+        else{
+            $data = Agenda::latest()->first(['banner', 'title', 'time', 'slug']);
+
+            Cache::put('footer', $data, timer('day'));
+        }
+        return response($data);
     }
-    public function home($str = ''){
-        // Request chaining
-        // switch ($str) {
-        //     case 'carousel':
-        //         $a = Carousel::oldest()->get(['description', 'title', 'type', 'url']);
-        //         break;
-        //     case 'video':
-        //         $a = Video::whereIsPublish(true)->latest()->get(['thumbnail', 'video']);
-        //         break;
-        //     case 'about':
-        //         $a = About::whereId(1)->first(['content', 'url']);
-        //         break;
-        //     case 'alumni':
-        //         $a = Alumni::whereIsPublish(true)->latest()->get(['company', 'content', 'name', 'url']);
-        //         break;
-        //     case 'company':
-        //         $a = Company::latest()->get(['link', 'url']);
-        //         break;
-        //     case 'section':
-        //         $a = Section::orderBy('id')->get(['title', 'subtitle']);
-        //         break;
-        //     case 'prestation':
-        //         $a = Prestation::latest()->limit(3)->get(['rank', 'title', 'url', 'year']);
-        //         break;
-        //     case 'agenda':
-        //         $a = Agenda::latest()->first(['banner', 'content', 'slug', 'time', 'title']);
-        //         break;
+    public function home(){
+        if($c = Cache::get('home'))
+            $data = $c;
+        else{
+            $data = [
+                'carousel' => Carousel::oldest()->get(['description', 'title', 'type', 'url']),
+                'video' => Video::whereIsPublish(true)->latest()->get(['thumbnail', 'video']),
+                'about' => About::whereId(1)->first(['content', 'url']),
+                'alumni' => Alumni::whereIsPublish(true)->latest()->get(['company', 'content', 'name', 'url']),
+                'company' => Company::latest()->get(['link', 'url']),
+                'section' => Section::orderBy('id')->get(['title', 'subtitle']),
+                'prestation' => Prestation::latest()->limit(3)->get(['rank', 'title', 'url', 'year']),
+                'agenda' => Agenda::latest()->first(['banner', 'content', 'slug', 'time', 'title'])
+            ];
 
-        //     default:
-        //         $a = [];
-        //         break;
-        // }
-        // return response($a);
+            Cache::put('home', $data, timer());
+        }
 
-        // Request once
-        return response([
-            'carousel' => Carousel::oldest()->get(['description', 'title', 'type', 'url']),
-            'video' => Video::whereIsPublish(true)->latest()->get(['thumbnail', 'video']),
-            'about' => About::whereId(1)->first(['content', 'url']),
-            'alumni' => Alumni::whereIsPublish(true)->latest()->get(['company', 'content', 'name', 'url']),
-            'company' => Company::latest()->get(['link', 'url']),
-            'section' => Section::orderBy('id')->get(['title', 'subtitle']),
-            'prestation' => Prestation::latest()->limit(3)->get(['rank', 'title', 'url', 'year']),
-            'agenda' => Agenda::latest()->first(['banner', 'content', 'slug', 'time', 'title'])
-        ]);
+        return response($data);
     }
     public function keyword(){
-        return response(Keyword::get(['key', 'value']));
+        if($c = Cache::get('keyword'))
+            $data = $c;
+        else{
+            $data = Keyword::get(['key', 'value']);
+
+            Cache::put('keyword', $data, timer());
+        }
+
+        return response($data);
     }
     public function social(){
-        return response([
-            'social' => Social::latest()->get(['icon', 'link']),
-            'footer' => Footer::latest()->get(['key', 'value'])
-        ]);
+        if($c = Cache::get('social'))
+            $data = $c;
+        else{
+            $data = [
+                'social' => Social::latest()->get(['icon', 'link']),
+                'footer' => Footer::latest()->get(['key', 'value'])
+            ];
+
+            Cache::put('social', $data, timer('month'));
+        }
+
+        return response($data);
     }
     public function profile($id){
-        if($check = Profile::find($id)){
-            $obj = [
-                'content' => $check,
-                'img' => Gallery::whereTarget(1)
-                    ->whereType($check->id)
+        if($c = Cache::get('profile'.$id))
+            $r = $c;
+        else{
+            if($check = Profile::find($id)){
+                $obj = [
+                    'content' => $check,
+                    'img' => Gallery::whereTarget(1)
+                        ->whereType($check->id)
+                        ->latest()
+                        ->get('url')
+                ];
+
+                if($check->id === 3)
+                    $obj['council'] = Council::whereId(1)->first(['title', 'json']);
+
+                $r = $obj;
+ 
+                Cache::put('profile'.$id, $r, timer('week'));
+            }else
+                $r = ['content' => null, 'img' => []];
+        }
+
+        return response($r);
+    }
+    public function study($id){
+        $str = str_replace('-', '', $id);
+
+        if($c = Cache::get('study'.$str))
+            $r = $c;
+        else{
+            if($check = Study::whereSlug($id)->first(['banner', 'title', 'content', 'content_2', 'slug'])){
+                $r = $check;
+
+                Cache::put('study'.$str, $r, timer('week'));
+            }else $r = null;
+        }
+
+        return response($r);
+    }
+    public function agenda(){
+        if($c = Cache::get('agenda'))
+            $data = $c;
+        else{
+            $data = Agenda::latest()->get(['slug', 'title', 'time', 'content', 'banner']);
+
+            Cache::put('agenda', $data, timer('week'));
+        }
+
+        return response($data);
+    }
+    public function agendaDetail($id){
+        $str = str_replace('-', '', $id);
+
+        if($c = Cache::get('agenda'.$str))
+            $r = $c;
+        else{
+            if($a = Agenda::whereSlug($id)->first()){
+                $r = [
+                    'agenda' => $a->only(['slug', 'title', 'time', 'content', 'banner']),
+                    'img' => Gallery::whereTarget(3)
+                        ->whereType($a->id)
+                        ->latest()
+                        ->get('url'),
+                    'other' => Agenda::where('id', '!=', $a->id)
+                        ->inRandomOrder()
+                        ->limit(3)
+                        ->get(['title', 'time', 'banner', 'slug'])
+                ];
+
+                Cache::put('agenda'.$str, $r, timer('week'));
+            }else $r = null;
+        }
+
+        return response($r);
+    }
+    public function prestation(){
+        if($c = Cache::get('prestation'))
+            $data = $c;
+        else{
+            $data = Prestation::latest()->get(['title', 'rank', 'year', 'url']);
+
+            Cache::put('prestation', $data, timer('week'));
+        }
+
+        return response($data);
+    }
+    public function gallery(){
+        if($c = Cache::get('gallery'))
+            $data = $c;
+        else{
+            $data = [
+                'img' => Gallery::latest('id')->get('url'),
+                'video' => Video::latest()->get(['thumbnail', 'video'])
+            ];
+
+            Cache::put('gallery', $data, timer('week'));
+        }
+
+        return response($data);
+    }
+    public function employee(){
+        if($c = Cache::get('employee'))
+            $data = $c;
+        else{
+            $data = [
+                'employee' => Employee::latest()->get(['title', 'name', 'url', 'type', 'child_type']),
+                'img' => Gallery::whereTarget(4)
                     ->latest()
                     ->get('url')
             ];
 
-            if($check->id === 3)
-                $obj['council'] = Council::whereId(1)->first(['title', 'json']);
+            Cache::put('employee', $data, timer('week'));
+        }
 
-            $r = response($obj);
-        }else
-            $r = response(['content' => null, 'img' => []]);
-
-        return $r;
-    }
-    public function study($id){
-        if($check = Study::whereSlug($id)->first(['banner', 'title', 'content', 'content_2', 'slug']))
-            $r = response($check);
-        else $r = response(null);
-
-        return $r;
-    }
-    public function agenda(){
-        return response(Agenda::latest()->get(['slug', 'title', 'time', 'content', 'banner']));
-    }
-    public function agendaDetail($id){
-        if($a = Agenda::whereSlug($id)->first())
-            $r = response([
-                'agenda' => $a->only(['slug', 'title', 'time', 'content', 'banner']),
-                'img' => Gallery::whereTarget(3)
-                    ->whereType($a->id)
-                    ->latest()
-                    ->get('url'),
-                'other' => Agenda::where('id', '!=', $a->id)
-                    ->inRandomOrder()
-                    ->limit(3)
-                    ->get(['title', 'time', 'banner', 'slug'])
-            ]);
-        else $r = response(null);
-
-        return $r;
-    }
-    public function prestation(){
-        return response(Prestation::latest()->get(['title', 'rank', 'year', 'url']));
-    }
-    public function gallery(){
-        return response([
-            'img' => Gallery::latest('id')->get('url'),
-            'video' => Video::latest()->get(['thumbnail', 'video'])
-        ]);
-    }
-    public function employee(){
-        return response([
-            'employee' => Employee::latest()->get(['title', 'name', 'url', 'type', 'child_type']),
-            'img' => Gallery::whereTarget(4)
-                ->latest()
-                ->get('url')
-        ]);
+        return response($data);
     }
     public function search(){
         return response([

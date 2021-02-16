@@ -36,7 +36,7 @@
                         </b-form-group>
                     </b-col>
                     <b-col cols="6">
-                        <b-form-group :label="$t('password_new')">
+                        <b-form-group :label="$t('password_confirm')">
                             <b-input-group>
                                 <b-input-group-prepend>
                                     <b-btn variant="bpi-blue" @click="toggle('vieww')">

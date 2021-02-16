@@ -12,7 +12,7 @@
                         <p>{{ i.description }}</p>
                     </div>
                     <div class="img-slider-ilustrasi">
-                        <img :src="sauce('storage/' + i.url)" :alt="i.title" />
+                        <img class="img-fluid" :src="sauce('storage/' + i.url)" :alt="i.title" />
                     </div>
                 </div>
                 <div v-else-if="i.type === 2" class="isi-content-slider">
@@ -65,6 +65,9 @@
                     <swiper class="swiper-bpi-video" :options="videoConfig">
                         <swiper-slide class="img-video" v-for="(i, k) in video" :key="k">
                             <img
+                                class="img-fluid"
+                                width="240"
+                                height="150"
                                 :src="sauce('storage/' + i.thumbnail)"
                                 :alt="appName"
                                 @click="openVideo(i.video, i.thumbnail)"
@@ -84,7 +87,7 @@
                 </b-col>
                 <b-col sm="12" md="12" lg="1" />
                 <b-col
-                    class="about-img"
+                    class="about-img img-fluid"
                     sm="12"
                     md="12"
                     lg="5"
@@ -139,7 +142,13 @@
                 <b-col v-for="(i, k) in prestation" :key="k" sm="12" md="12" lg="4">
                     <div class="single-thumb-juara">
                         <div class="card-img-thumb">
-                            <img :src="sauce('storage/' + i.url)" :alt="i.title" />
+                            <img
+                                class="img-fluid"
+                                width="450"
+                                height="350"
+                                :src="sauce('storage/' + i.url)"
+                                :alt="i.title"
+                            />
                         </div>
                         <div class="card-body text-center">
                             <h4 class="text-bpi-blue">{{ i.title }}</h4>
@@ -167,7 +176,7 @@
                     <b-col cols="12">
                         <div class="section-heading">
                             <h1 class="text-light">{{ section[4].title }}</h1>
-                            <p>{{ section[4].subtitle }}</p>
+                            <p class="text-bpi-yellow">{{ section[4].subtitle }}</p>
                         </div>
                     </b-col>
                 </b-row>
@@ -182,7 +191,13 @@
                     >
                         <div class="single-thumb-artikel">
                             <div class="card-img-thumb">
-                                <img :src="sauce('storage/' + i.url)" :alt="i.name" />
+                                <img
+                                    class="img-fluid"
+                                    width="420"
+                                    height="350"
+                                    :src="sauce('storage/' + i.url)"
+                                    :alt="i.name"
+                                />
                             </div>
                             <b-row>
                                 <b-col sm="12" md="8" lg="8">
@@ -220,18 +235,26 @@
             </b-row>
 
             <div class="text-center">
-                <b-btn variant="bpi-blue" slot="button-prev" @click="prevv()">
+                <b-btn variant="bpi-blue" @click="prevv()">
                     <fa icon="chevron-left" />
+                    <span class="sr-only">{{ $t('rick_roll') }}</span>
                 </b-btn>
-                <b-btn variant="bpi-blue" slot="button-next" @click="nextt()">
+                <b-btn variant="bpi-blue" @click="nextt()">
                     <fa icon="chevron-right" />
+                    <span class="sr-only">{{ $t('rick_roll') }}</span>
                 </b-btn>
             </div>
 
             <swiper ref="company" :options="companyConfig">
                 <swiper-slide v-for="(i, k) in company" :key="k" class="company-slider">
                     <a class="company-img" :href="i.link" target="_blank" rel="noopener">
-                        <img :src="sauce('storage/' + i.url)" :alt="appName" />
+                        <img
+                            class="img-fluid"
+                            width="450"
+                            height="75"
+                            :src="sauce('storage/' + i.url)"
+                            :alt="appName"
+                        />
                     </a>
                 </swiper-slide>
             </swiper>
@@ -250,6 +273,7 @@ import Vue from 'vue'
 import VueHead from 'vue-head'
 import SwiperCore, { Pagination, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
+import { mapGetters, mapActions } from 'vuex'
 
 Vue.use(VueHead)
 SwiperCore.use([Pagination, Autoplay])
@@ -353,25 +377,16 @@ export default {
         // })
 
         // Request once
-        axios.get('welcome')
+        if(this.welcome){
+            this.setData(this.welcome)
+            this.doSwiper()
+        }else axios.get('welcome')
             .then(({ data }) => {
-                this.carousel = data.carousel
-                this.video = data.video
-                this.about = data.about
-                this.alumni = data.alumni
-                this.company = data.company
-                this.section = data.section
-                this.prestation = data.prestation
-                this.agenda = data.agenda
-
-                this.videoConfig.breakpoints[1024].spaceBetween = this.video.length > 1 ? 20 : 0
+                this.setData(data)
+                this.setWelcome(data)
             })
             .then(() => {
-                if(this.carousel.length){
-                    this.swiper.slideTo(1)
-                    this.swiper.autoplay.stop()
-                    this.swiper.autoplay.start()
-                }
+                this.doSwiper()
             })
     },
     methods: {
@@ -380,17 +395,35 @@ export default {
         //         this[str] = r.data
         //     })
         // },
+        setData(data){
+            this.carousel = data.carousel
+            this.video = data.video
+            this.about = data.about
+            this.alumni = data.alumni
+            this.company = data.company
+            this.section = data.section
+            this.prestation = data.prestation
+            this.agenda = data.agenda
+            this.videoConfig.breakpoints[1024].spaceBetween = this.video.length > 1 ? 20 : 0
+        },
+        doSwiper(){
+            if(this.carousel.length){
+                this.swiper?.slideTo(1)
+                this.swiper?.autoplay?.stop()
+                this.swiper?.autoplay?.start()
+            }
+        },
         next(){
-            this.swiper.slideNext()
+            this.swiper?.slideNext()
         },
         prev(){
-            this.swiper.slidePrev()
+            this.swiper?.slidePrev()
         },
         nextt(){
-            this.sComp.slideNext()
+            this.sComp?.slideNext()
         },
         prevv(){
-            this.sComp.slidePrev()
+            this.sComp?.slidePrev()
         },
         openVideo(vid, thumb){
             this.modalVideo = {
@@ -398,15 +431,17 @@ export default {
                 thumbnail: thumb
             }
             this.$bvModal.show('video-modal')
-        }
+        },
+        ...mapActions(['setWelcome'])
     },
     computed: {
         swiper(){
-            return this.$refs.carousel.$swiper
+            return this.$refs.carousel?.$swiper
         },
         sComp(){
-            return this.$refs.company.$swiper
-        }
+            return this.$refs.company?.$swiper
+        },
+        ...mapGetters(['welcome'])
     },
     directive: {
         swiper: directive

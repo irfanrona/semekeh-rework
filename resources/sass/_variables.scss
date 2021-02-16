@@ -7,7 +7,7 @@ $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 // Colors
-$blue: #3490dc;
+$blue: #2b77b6; // #3490dc
 $indigo: #6574cd;
 $purple: #9561e2;
 $pink: #f66d9b;
@@ -20,15 +20,18 @@ $cyan: #6cb2eb;
 
 $bpiBlue: #022c43;
 $bpiYellow: #ffd700;
+$bpiYelloww: #7b7515;
 
 $colors: (
     bpi-blue: $bpiBlue,
     bpi-yellow: $bpiYellow,
+    bpi-yellow-two: $bpiYelloww,
     teal: $teal,
 ) !default;
 
 $theme-colors: (
     bpi-blue: $bpiBlue,
     bpi-yellow: $bpiYellow,
+    bpi-yellow-two: $bpiYelloww,
     teal: $teal,
 ) !default;

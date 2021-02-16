@@ -1,28 +1,7 @@
 <template>
     <div>
-        <header class="breadcrumb-area bg-bpi-blue">
-            <div class="container h-100">
-                <b-row class="h-100 align-items-center">
-                    <b-col cols="12">
-                        <h2 class="page-title">{{ $t('navbar.employees') }}</h2>
-                        <b-breadcrumb>
-                            <b-breadcrumb-item
-                                v-for="(i, k) in bread"
-                                :key="k"
-                                :active="k + 1 === bread.length"
-                            >
-                                <span v-if="k + 1 === bread.length">
-                                    <strong class="text-decoration-underline">{{ i.name }}</strong>
-                                </span>
-                                <span v-else>
-                                    <router-link class="text-white" :to="i.to">{{ i.name }}</router-link>
-                                </span>
-                            </b-breadcrumb-item>
-                        </b-breadcrumb>
-                    </b-col>
-                </b-row>
-            </div>
-        </header>
+        <bread :title="$t('navbar.employees')" />
+
         <b-container v-if="ready" class="my-4">
             <swiper ref="carousel" :options="carouselConfig" class="mb-4">
                 <swiper-slide v-for="(i, k) in img" :key="k">
@@ -88,6 +67,7 @@
 <script>
 import SwiperCore, { Pagination, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
+import { mapGetters, mapActions } from 'vuex'
 
 SwiperCore.use([Pagination, Autoplay])
 
@@ -123,53 +103,44 @@ export default {
         },
     }),
     mounted(){
-        axios.get('employee')
+        if(this.media?.emp){
+            this.setData(this.media.emp)
+        }else axios.get('employee')
             .then(r => {
-                const t = r.data.employee
-                let a = this.data
-
-                a.first = t.filter(i => i.type === 1 && i.child_type === 1)
-                a.firstt = t.filter(i => i.type === 1 && i.child_type === 2)
-                a.firsttt = this.sort(t.filter(i => i.type === 1 && i.child_type === 3))
-                a.second = this.sort(t.filter(i => i.type === 2))
-                a.third = this.sort(t.filter(i => i.type === 3))
-
-                this.img = r.data.img
-                this.ready = true
+                this.setData(r.data)
+                this.setMedia({ name: 'emp', data: r.data })
             })
     },
     methods: {
+        setData(d){
+            const t = d.employee
+            let a = this.data
+
+            a.first = t.filter(i => i.type === 1 && i.child_type === 1)
+            a.firstt = t.filter(i => i.type === 1 && i.child_type === 2)
+            a.firsttt = this.sort(t.filter(i => i.type === 1 && i.child_type === 3))
+            a.second = this.sort(t.filter(i => i.type === 2))
+            a.third = this.sort(t.filter(i => i.type === 3))
+
+            this.img = d.img
+            this.ready = true
+        },
         next(){
-            this.swiper.slideNext()
+            this.swiper?.slideNext()
         },
         prev(){
-            this.swiper.slidePrev()
+            this.swiper?.slidePrev()
         },
         sort(data){
             return data.sort((a, b) => a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1)
-        }
+        },
+        ...mapActions(['setMedia'])
     },
     computed: {
-        bread(){
-            let obj = [],
-                path = this.$route.path.split('/')
-
-            path.shift()
-
-            path.reduce((a, b, c) => {
-                obj.push({
-                    name: b.replace(/-/g, ' '),
-                    to: a[c - 1] ? `/${a[c - 1].name}/${b}` : '/' + b
-                })
-
-                return obj
-            }, [])
-
-            return obj
-        },
         swiper(){
-            return this.$refs.carousel.$swiper
+            return this.$refs.carousel?.$swiper
         },
+        ...mapGetters(['media'])
     },
     directive: {
         swiper: directive
